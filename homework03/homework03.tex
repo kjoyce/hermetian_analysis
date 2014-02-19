@@ -75,9 +75,20 @@ If $\lambda=0$, then there are two cases to consider.  If $d_m \not= 0$, then $g
     &= 0, 
   \end{align*}
   where the last equality follows from the induction hypothesis.
+
+  To see that the set of the solutions is linearly independent, suppose
+  \begin{align*}
+    0 &= c_0 e^{\lambda x} + c_1 x e^{\lambda x} + \dots + c_{m-1} x^{m-1} e^{\lambda x} \\
+    \iff 0 &= c_0 + c_1 x+ \dots c_{m-1}x^{m-1}. 
+  \end{align*}
+  If not all $c_j$ are zero, then for some $k\le m-1$, we can apply the fundamental theorem of algebra so that
+  $$
+  0 c_0 + c_1 x + \dots + c_k x^k = (x - \lambda_1)(x - \lambda_2)\cdots(x - \lambda_k),
+  $$
+  for all $x$, and in particular some $x \not= \lambda_j$ for all $1\le j\le k$ - a contradiction. 
+  
 \end{solution}
 
-\newpage
 \problem{{\bf ODE Primer 1.} Consider the ODE $y'' + 4y = 0$.  This is an example of a \emph{second order ODE with constant coefficients}.  }
 
 \subproblem{ Verify that $y(t) = A\sin(2t) + B\cos(2t)$ is a solution for any constants $A$ and $B$. }
@@ -140,10 +151,6 @@ Assuming a solution of the form $c(t)e^{\lambda t}$ for some differentiable $c$,
   (D^2 - 4) y &= Ae^{it} + Be^{-it} \\
   (D - 2)(D+2) y&= Ae^{it} + Be^{-it} \\
   (D+2) y&= e^{2t}\int_{\infty}^t (Ae^{ix} + Be^{-ix})e^{-2x}dx\\
-\end{align*}
-
-\newpage
-\begin{align*}
   (D+2) y&= e^{2t}\left(\frac{A}{-2+i}e^{it-2t} + \frac B{-2-i}e^{-it-2t}\right)\\
   y&= e^{-2t}\int_{-\infty}^t \left(\frac{A}{-2+i}e^{ix} + \frac B{-2-i} e^{-ix}\right) e^{2ix} dx\\
   &= e^{-2t}\left( \frac A{-5} e^{it+2t} + \frac{B}{-5}e^{-it + 2t} \right)\\
@@ -168,6 +175,10 @@ Again, using linearity
 \end{align*}
 
 We remark that if we define the appropriate domain and range for $(D^2 - 4)$ and invoke a result from linear algebra, one can show that \emph{all} such solutions are of the form $y_p + y_h$.
+
+\raggedleft$\qed$
+
+\raggedright
 
 \problem{{\bf D'Angelo 1.29.} Give an example of a function on the real line that is differentiable (at all points) but not continuously differentiable. }
 \begin{solution}
