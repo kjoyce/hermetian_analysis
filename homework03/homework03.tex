@@ -1,0 +1,208 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 3}
+\author{Kevin Joyce}
+\docdate{\today}
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+
+\problem{{\bf D'Angelo 1.27.} We wish to find a particular solution to
+$(D-\lambda)y = g$, when $g$ is a polynomial of degree $m$.  Identify the
+coefficiients of $g$ as a vector in $\CC^{m+1}$.  Assuming $\lambda \not = 0$,
+show that there is a unique particular solution $y$ that is a polynomial of
+degree $m$.  Write explicitly the matrix of the linear transformation that
+sends $y$ to $g$ and note that it is invertible. Explain precisely what happens
+when $\lambda = 0$.  }
+
+\begin{solution}
+Recall that complex polynomials of degree $m$, say $P_m$, form an
+$(m+1)$-dimensional vector space with the basis $\{1, z, z^2, \dots, z^m\}$.
+Hence, the linear map $(D-\lambda):P_m \to P_m$ can represented as a matrix by
+observing its action on this basis, and writing the resulting vector in this
+basis as column of the matrix.  Using $(D - \lambda) z^n = n z^{n-1} - \lambda
+z^n$, the result is an upper-triangular $(m+1)\times(m+1)$-matrix, with $-\lambda$ on the
+diagonal, $1$ on the upper diagonal, and all other entries zero.  I.e.
+$$
+M = \begin{pmatrix}
+-\lambda & 1	    & 0	       & \cdots & 0\\
+0	 & -\lambda & 2	       & \ddots & \vdots\\
+0	 & 0	    & \ddots   & \ddots & 0\\ 
+\vdots   & \vdots   & \ddots   & \ddots & m\\
+0	 & \cdots   & \cdots   & 0 & -\lambda\\
+\end{pmatrix}.
+$$
+Note that the corresponding matrix equation $M y = g$ can easily by solved by
+inductively backsolving when $\lambda \not= 0$.  That is, if $g(z) = c_0 + c_1
+z + \dots c_m z_m$, and the coefficients to be determined are given by $y = d_0
++ d_1 z^1 + \dots d_m z^m$, then the last coefficent is $d_m = -1/\lambda$, and
+$d_{m-k}$ is obtained by solving
+$$
+  -\lambda d_{m-k} + (m-k+1) d_{m-k+1}  = c_{m-k} \iff d_{m-k} = \frac{((m-k+1)d_{m-k+1} - c_{m-k}}{\lambda}.
+$$
+
+If $\lambda=0$, then there are two cases to consider.  If $d_m \not= 0$, then $g$ is an $m$th degree polynomial, for which no $m$th degree polynomial $y$ satisfies $\frac d{dx} y = g$.  If $d_m = 0$, then $g$ is $(m-1)$th degree, and there are infinitely many polynomials satisfying $\frac d{dx} y = g$.  Namely, $\int g + c_0$.
+\end{solution}
+
+\problem{{\bf D'Angelo 1.28.} Consider the equation $(D-\lambda)^m y =0$.  Prove by induction that $x^je^{\lambda x}$ for $0\le j\le m-1$ form a linearly independent set of solutions. }
+
+\enlargethispage{2em}
+\begin{solution}
+  Consider the case where $m=1$. Then $(D - \lambda)^m e^{\lambda x} = \lambda e^{\lambda x} - \lambda e^{\lambda x} = 0$.  Now, suppose the claim holds for $m$. If $0\le j \le m$, then
+  \begin{align*}
+    (D-\lambda)^{m+1} x^je^{\lambda x} 
+    &= (D - \lambda)^m(D - \lambda) x^j e^{\lambda x}\\
+    &= (D - \lambda)^m(j x^{j-1} e^{\lambda x} +\lambda x^je^{\lambda x} - \lambda x^je^{\lambda x})\\
+    &= (D - \lambda)^m(j x^{j-1} e^{\lambda x})\\
+    &= 0, 
+  \end{align*}
+  where the last equality follows from the induction hypothesis.
+\end{solution}
+
+\newpage
+\problem{{\bf ODE Primer 1.} Consider the ODE $y'' + 4y = 0$.  This is an example of a \emph{second order ODE with constant coefficients}.  }
+
+\subproblem{ Verify that $y(t) = A\sin(2t) + B\cos(2t)$ is a solution for any constants $A$ and $B$. }
+
+%Denote the linear differential operator $D = \frac{d}{dx}$. 
+Using $(\frac{d^2}{dt^2}\sin)(t) = (\frac d{dt}\cos)(t) = -\sin t$ and $(\frac{d^2}{dt^2}\cos)(t) = (-\frac d{dt}\sin)(t) = -\cos t$, we calculate 
+\begin{align*}
+  \left(\frac{d^2}{dt^2} + 4\right)y(t) 
+  &= \frac{d^2}{dt^2}y(t) + 4y(t)\\
+  &= -4A\sin(2t) - 4B\cos(2t) + 4A\sin(2t) + 4B\cos(2t) \\
+  &=0
+\end{align*}
+
+\subproblem{ Verify that $y(t) = Ce^{2it} + De^{-2it}$ is a solution for any $C$ and $E$. }
+
+Using $\frac{d^2}{dt^2} e^{ct} = c^2e^{ct}$,
+\begin{align*}
+  \left(\frac {d^2}{dt^2}^2 + 4\right)y(t) 
+  &= \frac {d^2}{dt^2}^2 y(t) + 4y(t)\\
+  &= (2i)^2 C e^{2it} + (-2i)^2 De^{-2it} + 4C e^{2it} + 4De^{-2it} \\
+  &= -4C e^{2it} + -4De^{-2it} + 4C e^{2it} + 4De^{-2it} \\
+  &=0.
+\end{align*}
+
+\subproblem{ Show that the above two solutions are really the same. Let Euler help}
+Observe
+$$
+  Ce^{2it} + De^{-2it} = (C+D)\cos(2t) + i(C-D)\sin(2t).
+$$
+So, by taking $A = C+D$ and $B = i(C-D)$, the solution in (b) is a form of (a).  Moreover, if 
+$$
+  C = \frac{A-iB}{2}\quad \text{ and }\quad D = \frac{A + iB}{2} 
+$$
+then, using the fact that $1/i = -i$, 
+$$
+  Ce^{2it} + De^{-2it} = \frac A2(e^{2it} + e^{-2it}) + \frac{B}{2i}(-e^{2it} + e^{-2it}) = A\cos(2t) + B\sin(2t).
+$$
+Hence the solution in (a) is a form of (b).
+%Without loss of generality, we may take $(A,B) \not= (0,0)$. Let $R = \sqrt{A^2 + B^2}$, and 
+%$$
+%\phi = \begin{cases}
+%  \tan^{-1} (A/B)&\text{for $B\not=0$,}\\
+%  \pi/2&\text{for $B=0$ and $A>0$,} \\
+%  -\pi/2&\text{for $B=0$ and $A<0$.} 
+%\end{cases}
+%$$
+%
+
+\problem{{\bf ODE Primer 3.} Consider $y'' - 4y = \sin t + \cos t$. }
+
+\subproblem{ Find a function $y_p(t)$ that is a \emph{particular solution}. One method is to assume it has the form $y_p(t) = a\sin t + b\cos t$ and figure out what $a$ and $b$ need to be. }
+
+Rather than the proposed method, we employ the method outlined in 4.1 of D'Angelo.  Using the same method as (c) of problem 3,  
+$$
+\sin t + \cos t = A e^{it} + Be^{-it}\quad\text{ where $A = (1-i)/2$ and $B = (1+i)/2$.}
+$$
+Assuming a solution of the form $c(t)e^{\lambda t}$ for some differentiable $c$, we have
+\enlargethispage{1em}
+\begin{align*}
+  (D^2 - 4) y &= Ae^{it} + Be^{-it} \\
+  (D - 2)(D+2) y&= Ae^{it} + Be^{-it} \\
+  (D+2) y&= e^{2t}\int_{\infty}^t (Ae^{ix} + Be^{-ix})e^{-2x}dx\\
+\end{align*}
+
+\newpage
+\begin{align*}
+  (D+2) y&= e^{2t}\left(\frac{A}{-2+i}e^{it-2t} + \frac B{-2-i}e^{-it-2t}\right)\\
+  y&= e^{-2t}\int_{-\infty}^t \left(\frac{A}{-2+i}e^{ix} + \frac B{-2-i} e^{-ix}\right) e^{2ix} dx\\
+  &= e^{-2t}\left( \frac A{-5} e^{it+2t} + \frac{B}{-5}e^{-it + 2t} \right)\\
+  &= -\frac {1}{5}\left( Ae^{it} + Be^{-it} \right)\\
+  &= -\frac 15 \mathrm{Re}\big[ (1+i)e^{it} \big] \quad \text{ since }\bar{Ae^{it}} = \frac{1+i}2e^{-it} = Be^{-it},\\
+  &= -\frac 15( \cos t + \sin t).
+\end{align*}
+
+\subproblem{ Show that if $y_h$ is a solution to $y'' - 4y = 0$ (the \emph{homogeneous equation}), and if $y_p$ is a particular solution to $y'' - 4y = \sin t + \cos t$, then $y_h + y_p$ is also a solution to $y'' - 4y = \sin t + \cos t$. }
+
+Note that if $y_p = c_1 e^{2t} + c_2 e^{-2t}$, then using linearity and factoring the operator $D^2 -4$, we have
+\begin{align*}
+  (D^2 - 4)y_p 
+  &= c_1(D+2)(D - 2)e^{2t} + c_2(D-2)(D + 2)e^{-2t} \\
+  &= c_1(D+2) 0 + c_2(D-2) 0 = 0.
+\end{align*}
+Again, using linearity
+\begin{align*}
+  (D^2 - 4) (y_h + y_p) 
+  &= (D^2 -4)y_h + (D^2 -4)y_p\\
+  &= 0 + (\sin x + \cos x).
+\end{align*}
+
+We remark that if we define the appropriate domain and range for $(D^2 - 4)$ and invoke a result from linear algebra, one can show that \emph{all} such solutions are of the form $y_p + y_h$.
+
+\problem{{\bf D'Angelo 1.29.} Give an example of a function on the real line that is differentiable (at all points) but not continuously differentiable. }
+\begin{solution}
+  Consider the function $f:\RR \to \RR$ defined by
+  $$
+    f(x) = \begin{cases}
+      \ds{x^2 \sin\left(\frac 1x\right)} & \text{ if } x \not= 0\\
+      0 & \text{ otherwise.}
+    \end{cases}
+  $$
+  For $x \not=0$, we can calculate
+  \begin{align*}
+    f'(x) 
+    &= 2x \sin\left(\frac 1x\right) + x^2 \cos\left( \frac 1x\right) (-x^{-2})
+    = 2x \sin\left(\frac 1x\right) + \cos\left( \frac 1x\right). \\
+  \end{align*}
+  When $x = 0$, the derivative is given by
+  $$
+    \lim_{h\to 0} \frac{ f(h) - f(0) }{h} = \lim_{h\to0} \frac{ h^2\sin\left(\frac 1h\right) }{h} = 0,
+  $$
+  since $\sin(\frac 1h)$ is bounded.  We have shown that $f$ is differentiable. Yet, $\lim_{x\to0} f'(x)$ does not exist. To see this, consider $x_n = (n\pi)^{-1}$, and note $\{x_n\}$ converges to 0, yet $f'(x_n) = (-1)^{n}$ which defines a diverging sequence. Hence $f'$ is not continuous.
+\end{solution}
+
+\problem{{\bf D'Angelo 1.31} Give a suggestive argument why $e^{Dt}f(x) = f(x+t)$. }
+
+\begin{solution}
+  Let us assume that $f$ has sufficiently many derivatives so that 
+  $$
+    e^{Dt}f(x) := \sum_{n=0}^\infty \frac{f^{(n)}(x)}{n!} t^n
+  $$ 
+  exists for all $x$ and $t$.  If we approximate $f$ by its Taylor series centered at $t$, and evaluate at $x+t$, we have
+  $$
+    f(x+t) = \sum_{n=0}^N \frac{f^{(n)}(t)}{n!} ((x+t) - t)^n + R_N(x+t).
+  $$
+  Using the integral form of the remainder term, we have $R_N(x+t) = \int_a^{x+t} f^{(N+1)}(s) s^n/(N!)\,ds$.  For a fixed $x$ and $t$, the integrand can be shown to pointwise converge to zero.  
+\end{solution}
+
+\end{document}
