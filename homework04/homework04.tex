@@ -1,0 +1,148 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 4}
+\author{Kevin Joyce}
+\docdate{\today}
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+
+\problem{{\bf D'Angelo 1.32.} Define a sequence of functions $\{f_n\}$ on $[0,1]$ as follows: $f_n(x) = 0$ for $9\le x\le \frac 1n$ and $f_n(x) = -\log(x)$ otherwise.}  
+
+\begin{solution}
+Note that $ \lim_{n\to\infty} f_n(x) = -\log x $ if $x > 0$ and $\lim_{n\to\infty} f_n(0) = 0$. The resulting function is unbounded, hence it is not Riemann integrable. However, for $m<n$,
+$$
+  \|f_n - f_m\|_{L_2}^2 = \int_0^1 (f_n(x) - f_m(x))^2 dx = \int_{1/n}^{1/m} \log^2(x)dx.
+$$ 
+By the mean value theorem,
+\begin{align*}
+\int_{1/n}^{1/m} \log^2(x)dx 
+  &= \left(\frac 1m - \frac 1n\right) \log^2(c) \quad\text{ for some }c \in \left(\frac 1n,\frac 1m\right)\\
+  &\le \left(\frac 1n \right) \log^2\left(\frac 1n\right).
+\end{align*}
+To evaluate this limit, we reparameterize and apply L'Hopital's rule twice
+\begin{align*}
+  \lim_{x\to0} y \log^2(y) 
+  &= \lim_{x\to0} \frac{ 2x^{-1} \log x }{-x^{-2}} \\
+  &= \lim_{x\to0} \frac{ -2\log x }{x^{-1}} \\
+  &= \lim_{x\to0} \frac{ -2 x^{-1}}{-x^{-2}} \\
+  &= \lim_{x\to0} 2x \\
+  &= 0 \\
+\end{align*}
+Hence $\{f_n\}$ is Cauchy with respect to the $L_2$ norm, yet does not converge to a Riemann integrable function.  
+
+If we take $m<n$ sufficiently small so that $|\log(1/m)| > 1$, then $|\log(x)| < |\log(x)|^2$ for $1/n<x<1/m$ and 
+$$
+  \|f_n - f_m\|_{L_1} = \int_0^1 |f_n(x) - f_m(x)| dx = \int_{1/n}^{1/m} |\log(x)|dx \le \int_{1/n}^{1/m} \log^2(x) dx = \|f_n - f_m\|_{L_2}.
+$$
+So the sequence is Cauchy in $L_1$ as well.
+
+\end{solution}
+
+\problem{{\bf D'Angelo 1.35.} For $0\le r < 1$, define $P_r(\theta)$ as follows.  Put $z= re^{i\theta}$ and put $P_r(\theta) = \frac{1 - |z|^2}{|1-z|^2}$.  Show 
+$$
+  P_r(\theta) = \sum_{n\in\ZZ} r^{|n|}e^{in\theta}.
+$$ }
+
+\begin{solution}
+  We calculate
+  \begin{align*}
+  P_r(\theta) 
+  &= \sum_{n\in\ZZ} r^{|n|}e^{in\theta} \\
+  &= \sum_{n=0}^{\infty} r^{|n|}e^{in\theta} + \sum_{n=1}^{\infty} r^{|-n|}e^{-in\theta} \\
+  &= \sum_{n=0}^{\infty} z^n + \sum_{n=1}^{\infty} \bar z^n \\
+  &= \frac{1}{1 - z} + \frac{\bar z}{1 - \bar z} \\
+  &= \frac{(1-\bar z) + \bar z (1-z)}{(1 - z)(1 - \bar z)} \\
+  &= \frac{1-\bar z z}{(1 - z)\bar{(1 - z)}} \\
+  &= \frac{1-|z|^2}{|1 - z|^2}. \\
+  \end{align*}
+\end{solution}
+
+\newcommand{\GG}{\ensuremath{\mathcal G}}
+\problem{{\bf D'Angelo 1.36.} For $0 < t < \infty$, put $\GG_t(x) = \sqrt{\frac t\pi} e^{-tx^2}$. Then $\GG_t$ defines an approximate idenity.}  
+
+\begin{solution}
+Since $\GG_t(x) > 0$, we need only to show that $\int_{-\infty}^\infty \GG_t(x)dx = 1$ and, that for $\delta > 0$,
+$$
+  \lim_{t\to\infty} \int_{|x|\ge \delta} \GG_t(x)dx = 0.
+$$
+
+First, we calculate
+\begin{align*}
+  \int_{-\infty}^\infty \GG_t(x) dx
+  &= \pi^{-1/2} \int_{-\infty}^\infty e^{-tx^2} \sqrt{t}dx\\
+  &=  \pi^{-1/2} \int_{\infty}^\infty e^{-u^2} dx\\
+  &\stackrel *=  \pi^{-1/2} \sqrt{\pi}\\
+  &= 1.
+\end{align*}
+
+The equality in $*$ can be seen by noting the convergence of $\int u^{-2} \ge \int e^{-u^2}$, and evaluating the square of the integral by polar coordinates.  I.e.
+
+$$
+  \left(\int_{-\infty}^{\infty}e^{-u^2}du\right)^2 = \int_0^{2\pi}\int_0^\infty e^{-r^2}rdrd\theta = \int_0^{2\pi}2d\theta = \pi.
+$$
+
+Now, since $\GG_t$ is even, and using the same change of variables as before
+\begin{align*}
+  \lim_{t\to\infty} \int_{|x|\ge \delta} \GG_t(x)dx 
+  &= 2 \int_{-\infty}^{-\delta} \GG_t(x)dx\\
+  &= \frac 2{\sqrt \pi} \int_{-\infty}^{-\delta \sqrt t} e^{-u^2}dx = 2 F(-\delta \sqrt t),\\
+\end{align*}
+where $F:(-\infty,0] \to (0,1/2]$, defined by 
+$$
+  F(y) \frac 1{\sqrt \pi} \int_{-\infty}^{y} e^{-u^2}dx.
+$$
+To see that $F$ does indeed map into $(0,1/2]$, recall that the integral over
+the whole real line was shown to be $1$, and since the integrand is even, the
+integral over $(-\infty,0]$ is $1/2$. Since $e^{-u^2} > 0$, $F$ is increasing,
+and by the fundamental theorem of calculus, $F$ is continuous.  Moreover, $\lim_{y\to\infty} F(y) = 0$.  Hence, for a given $\eps > 0$there exists a $y^*$ so that $ F(y^*) = \eps/2$, by the
+intermediate value theorem, .
+Now, choose $t > \frac{y^*}{\delta}$ then $-\delta \sqrt t < y^*$ implies 
+$$
+ \int_{|x| \ge \delta} \GG_t(x) dx= 2 F(-\delta \sqrt t) < \eps.
+$$
+\end{solution}
+
+\problem{{\bf D'Angelo 1.38.} Find the Fourier series for $\cos^{2N}(\theta)$.}
+
+\begin{solution}
+Using the complex identity for $\cos(\theta)$, we calculate
+\begin{align*}
+  \cos^{2N}(\theta) 
+  &= \frac{1}{2^{2N}} (e^{i\theta} + e^{-i\theta})^{2N}\\
+  &= \frac{1}{2^{2N}} \sum_{j=0}^{2N} e^{i\theta j}e^{-i\theta(2N-j)} \\
+  &= \frac{1}{2^{2N}} \sum_{j=0}^{2N} e^{i\theta(2N-2j)} \\
+  &= \frac{1}{2^{2N}} \left(\sum_{j=0}^{N} e^{2i\theta(N-j)} + \sum_{j=N+1}^{2N} e^{2i\theta(N-j)}\right)\\
+  &\stackrel\dagger= \frac{1}{2^{2N}} \left(\sum_{k=0}^{N} e^{2i\theta k} + \sum_{k=1}^{N} e^{-2i\theta k}\right)\\
+  &= \sum_{k=-N}^N c_k e^{i\theta k} \quad \text{ where } c_k = \frac 1{2^{2N}}\text{ if $k$ is even, $0$ otherwise.}
+\end{align*}
+
+Incidentally, we can easily calculate $\int \cos^{2N}$ from $\dagger$ by
+\begin{align*}
+\int \cos^{2N}(\theta)\, d\theta 
+  &\stackrel\dagger= \frac{1}{2^{2N}} \left(\sum_{k=1}^{N} \int e^{2i\theta k} d\theta + \sum_{k=1}^{N} \int e^{-2i\theta k} d\theta + \theta\right) + c\\
+  &= \frac{1}{2^{2N}} \left(\sum_{k=1}^{N} \frac 1{2ik} e^{2i\theta k} + \sum_{k=1}^{N} \frac {-1}{2ik} e^{-2i\theta k}  + \theta\right) + c\\
+  &= \frac{1}{2^{2N}} \left(\sum_{k=1}^{N} \frac 1{2ik} \left(e^{2i\theta k} - e^{-2i\theta k}\right)  + \theta\right) + c\\
+  &= \frac{1}{2^{2N}} \left(\sum_{k=1}^{N} \frac 1{k} \sin(2k\theta)  + \theta\right) + c.\\
+\end{align*}
+\end{solution}
+
+\end{document}
