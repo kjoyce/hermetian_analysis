@@ -1,0 +1,149 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 5}
+\author{Kevin Joyce}
+\docdate{\today}
+
+
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+\newcommand{\FF}{\mathcal F}
+
+\problem{{\bf D'Angelo 1.40.} Assume that $f:\SS^1\to \CC$ is $k$ times continuously differentiable.  Show that there is a constant $C$ such that for $n>0$
+$$
+  |\hat f(n)| \le \frac C{n^k}.
+$$
+}
+
+\begin{solution}
+First, observe 
+\begin{align*}
+ \FF(f^{(j)}) &= \int_0^{2\pi} f^{(j)} e^{-inx}\,dx \\
+ &= \left. f^{(k-1)}e^{-inx} \right|_{x=0}^{2\pi} + \frac {in}{2\pi} \int_0^{2\pi} f^{(j-1)}e^{-inx}\,dx\\
+ &= 0 + in\FF(f^{(j-1)}).
+\end{align*}
+Proceeding inductively from $k$, we have 
+$$
+  \FF(f^{(j)}) = (in)^k \FF(f).
+$$
+Hence,
+\begin{align*}
+  |\FF(f)| &= \frac{|\FF(f^{(j)})|}{n^k} \le \frac{\|f^{(j)}\|_{L_1}}{n^k}
+\end{align*}
+which is finite since $f^{(j)}$ is continuous on the compact set $\SS^1$.  
+%We argue by induction.  For the base case assume $f:\SS^1 \to \CC$ is once continuously differentiable, then the fundamental theorem of calculus implies $f(x) - f(0) = \int_0^x f'(t)dt$$f'$, and in particular, $\frac 1{2\pi} \int f'(u)du = f(2\pi) - f(0) = 0$. Lemma 1.8. implies
+%  $$
+%    \FF(f-f(0))(n) = \frac{ \FF(f')(n) }{in}.
+%  $$
+%Note $\FF(f - f(0)) = \FF(f)(n) - \FF(f(0))(n) = \FF(n)$ for $n>0$.  Hence
+%$$
+%  |\FF(f)(n)|= \frac{ |\FF(f')(n)| }{n} \le \frac{\|f'\|_{L1}}{n},
+%$$
+%is bounded since $f'$ is continuous on $S^1$.
+%
+%Now, suppose that 
+%$$
+%  |\FF(f)(n)| \le \frac{C}{n^k}
+%$$
+%for each $f:\SS^2\to \CC$ that is $k$ times continuously differentiable.  Integrating by parts, we have
+%$$
+%  \FF(f^{(k)}) = \frac 1{}
+%$$
+\end{solution}
+
+\problem{ {\bf D'Angelo 1.41.} Assume that $f(x) = -1$ for $-\pi< x < 0$ and $f(x) = 1$ for $0<x<\pi$.  Compute the Fourier series for $f$.  }
+
+\begin{solution}
+  We calculate
+  \begin{align*} 
+    \int_{-\pi}^{\pi} f(x) e^{-inx}\,dx 
+    &= \int_{-\pi}^{\pi} f(x) \cos(nx)\,dx - i \int_{-\pi}^{\pi} f(x) \sin(nx)\,dx \\
+    &= 0 -2i \int_0^\pi \sin(nx)\,dx \\
+    &= \frac{-2i (\cos(n\pi) - 1)}{n} \\
+    &= \begin{cases}
+      \ds{\frac{4i}{n}} \quad\text{if $n$ is even}\\
+      0\quad\text{ otherwise.}
+    \end{cases}
+  \end{align*}
+\end{solution}
+
+\problem{ {\bf D'Angelo 1.44.} Put $D_k = \sum_{-k}^k e^{inx}$. Define $F_N$ by 
+$$
+  F_N = \frac{D_0(x) + D_1(x) +\dots+D_{N-1}(x)}{N},
+$$ 
+and show that 
+$$
+  F_N = \frac 1N \frac{\sin^2\left(\frac{Nx}2\right)}{\sin^2\left(\frac x2\right)}.
+$$}
+
+\begin{solution}
+  Denote $\omega = e^{inx}$, and note that $\omega^{-1} = \bar \omega$. Expanding $F_N$, we have
+\begin{align*}
+  F_n(x) = \frac 1N \sum_{k=0}^{N-1} \sum_{n=-k}^k \omega^n
+  &= \frac 1N \sum_{k=0}^{N-1} \omega^{-k} \sum_{n=-k}^k \omega^{k+n}\\
+  &= \frac 1N \sum_{k=0}^{N-1} \omega^{-k} \sum_{n=0}^{2k} \omega^{n}\\
+  &= \frac 1N \sum_{k=0}^{N-1} \omega^{-k}\frac{1 - \omega^{2k+1}}{1-\omega}\\
+  &= \frac 1N \frac1{1-\omega} \sum_{k=0}^{N-1} \bar \omega^{k} - \omega^{k+1}\\
+  &= \frac 1N \frac1{1-\omega} \left(\frac{1 - \bar \omega^{N}}{1-\bar \omega} - \frac{\omega - \omega^{N+1}}{1-\omega}\right)\\
+  &= \frac 1N \frac1{|1-\omega|^2} \left(1 - \bar \omega^{N} - (1-\bar \omega)\frac{\omega - \omega^{N+1}}{1-\omega}\right)\\
+  &= \frac 1N \frac1{|1-\omega|^2} \left(1 - \bar \omega^{N} - \frac{-(1-\omega) + \omega^N(1-\omega)}{1-\omega}\right)\\
+  &= \frac 1N \frac1{|1-\omega|^2} \left(2 - \bar \omega^{N} - \omega^N\right)\\
+  &= \frac 1N \frac{2 - 2\cos(Nx)}{(1-\cos x)^2 + \sin^2 x}\\
+  &= \frac 1N \frac{2 - 2\cos(Nx)}{2-2\cos x}.\\
+\end{align*}
+The result follows upon using the following identity,
+$$
+  \frac{1 - \cos(\alpha)}{2} =\sin^2\left(\frac\alpha2\right).
+$$
+\end{solution}
+
+\problem{{\bf D'Angelo 1.49.} Derive the Weierstrass approximation theorem from Corollary 1.8.  }  
+
+\begin{solution}
+The Weierstrass approximation theorem stats that for any continuous $f:[a,b] \to \CC$, for any $\eps >0$, there exists a polynomial $p$ so that 
+$$
+  \|p - f\|_{\sup} < \eps.
+$$
+
+Without loss of generality, we can consider $f$ on the circle by applying the continuous transformation 
+\end{solution}
+
+\problem{{\bf D'Angelo 1.50.} If $\{s_n\}$ is a monotone sequence of real numbers, show that the averages $\sigma_N = \frac 1N \sum_{j=1}^N$ also define a monotone sequence.  Give an example where the converse is false.  }
+
+\begin{solution}
+  Without loss of generality, assume that $s_n\le s_{n+1}$. We must show that $\sigma_N \le \sigma_{N+1}$.  Observe
+  \begin{align*}
+    \sigma_{N+1} - \sigma_N 
+    &= \frac{s_1 + \dots + s_{N+1}}{N+1} - \frac{s_1 + \dots + s_N}{N} \\
+    &= \frac{N(s_1+\dots + s_{N+1}) - (N+1)(s_1+\dots + s_N)}{N(N+1)}\\
+    &= \frac{Ns_{N+1} - (s_1+\dots + s_N)}{N(N+1)}\\
+    &= \frac{(s_{N+1} - s_1) + (s_{N+1} - s_2) + \dots + (s_{N+1} - s_N)}{N(N+1)}\\
+    &\ge 0 
+  \end{align*}
+  by monotonicity.
+
+  For the converse assertion, consider the sequence $\{s_n\}$ given by $s_n = \frac{(-1)^{n+1}}{n}$. This sequence is clearly non-monotonic, yet
+  \begin{align*}
+    \sigma_n = 
+  \end{align*}
+\end{solution}
+\end{document}
