@@ -1,0 +1,110 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 7}
+\author{Kevin Joyce}
+\docdate{\today}
+
+
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+\newcommand{\FF}{\mathcal F}
+
+%\problem{{\bf D'Angelo 2.1.} Verify the following properties of an inner product space
+%\begin{enumerate}[(i)]
+%  \item $\langle u,v + w\rangle = \langle u,v \rangle + \langle u, w\rangle$
+%  \item $\langle u,cv\rangle = \bar c\langle u, v \rangle$
+%  \item $\langle 0,w\rangle = 0$ for all $w \in V$.  In particular $\langle 0, 0\rangle = 0$.
+%\end{enumerate}
+%}
+%
+%\begin{solution}
+%  For (i), observe
+%  $$
+%    \langle u, v+w\rangle = \bar{\langle v+w,u\rangle} = \bar{\langle v,u\rangle + \langle w,u\rangle} = \bar{\langle v,u\rangle} + \bar{\langle w,u\rangle} = \langle u,v \rangle + \langle u, w\rangle.
+%  $$
+%  Similarly, (ii) follows from
+%  $$
+%    \langle u,cv\rangle = \bar{\langle cv,u\rangle} = \bar{c\langle v,u\rangle} \bar c \bar{\langle v,u \rangle} = \bar c\langle u,v\rangle.
+%  $$
+%  Finally, (iii) follows from the fact that the scalar $0$ times the vector $0$ is $0$, hence $\langle 0,w\rangle = 0\langle 0,w\rangle = 0$.
+%\end{solution}
+
+\problem{{\bf D'Angelo 2.2.} Prove the Cauchy-Schwarz inequality in $\RR^n$ by writing $\|x\|^2 \|y\|^2- |\langle x,y\rangle|^2$ as a sum of squares.  Give the analogous proof in $\CC^n$. }
+
+\begin{solution}
+  For $x=(x_1,\dots,x_n),\,y=(y_1,\dots,y_n)$, the inequality is equivalent to
+  $$
+    \left(\sum_{j=1}^n x_j^2 \right)\left(\sum_{k=1}^n y_k^2 \right) - \left( \sum_{j=1}^nx_j y_j\right)^2 \ge 0.
+  $$
+  We prove the following identity by induction.   
+  $$
+    \left(\sum_{j=1}^n x_j^2 \right)\left(\sum_{k=1}^n y_k^2 \right) - \left( \sum_{j=1}^nx_j y_j\right)^2
+    \stackrel*= \sum_{k=1}^{n-1}\sum_{j=1}^k(x_k y_i - y_k x_i)^2.
+  $$
+  In the case $n=1$, it is clear that both the left and right hand side of the identity are $0$.
+  Observe
+  \begin{align*}
+    \left(\sum_{j=1}^{n+1} x_j^2 \right)\left(\sum_{k=1}^{n+1} y_k^2 \right) 
+    &= \left(\sum_{j=1}^n x_j^2 + x^2_{n+1}\right)\left(\sum_{k=1}^n y_k^2 + y^2_{n+1}\right) \\
+    &= \sum_{j=1}^n x_j^2\sum_{k=1}^n y_k^2 + x^2_{n+1}\sum_{k=1}^n y_k^2 + y^2_{n+1}\sum_{j=1}^n x_j^2 + x_{n+1}^2y_{n+1}^2, \\
+    \intertext{and}
+    \left( \sum_{j=1}^{n+1}x_j y_j \right)^2 
+    &= \left( \sum_{j=1}^nx_j y_j \right)^2 + 2x_{n+1}y_{n+1}\sum_{j=1}^n x_jy_j  + x_{n+1}^2y_{n+1}^2.
+  \end{align*}
+  Subtracting these quantities and invoking the induction hypothesis, the left hand side of $^*$ is
+  \begin{align*}
+    &\stackrel*= \left(\sum_{k=1}^{n-1}\sum_{j=1}^k(x_k y_i - y_k x_i)^2\right) + 
+    x^2_{n+1}\sum_{k=1}^n y_k^2 -2x_{n+1}y_{n+1}\sum_{j=1}^n x_jy_j+ y^2_{n+1}\sum_{j=1}^n x_j^2\\
+    &= \left(\sum_{k=1}^{n-1}\sum_{j=1}^k(x_k y_i - y_k x_i)^2\right) + 
+    \sum_{j=1}^n (x_{n+1}y_j)^2 -2x_{n+1}y_{n+1}x_jy_j + (y_{n+1}x_j)^2\\
+    &= \left(\sum_{k=1}^{n-1}\sum_{j=1}^k(x_k y_i - y_k x_i)^2\right) + 
+    \sum_{j=1}^n (x_{n+1}y_j - y_{n+1}x_j)^2\\
+    &= \sum_{k=1}^{n}\sum_{j=1}^k(x_k y_i - y_k x_i)^2.
+  \end{align*}
+  The analogous proof in $\CC^n$ would be to prove the similarly indexed identity $\sum|x_j|^2\sum|y_k|^2 - |\sum x_jy_j| = \sum\sum|x_ky_i - y_kx_i|^2$ in a completely analogous fashion, only differing by writing $|\sum x_jy_j|^2 = \sum x_jy_j \sum \bar x_j \bar y_j$, and factoring a similar expression.
+  
+\end{solution}
+
+\problem{{\bf D'Angelo 2.23.} Prove the Cauchy-Schwarz inequality in $\RR^n$ using Lagrange multipliers. }
+
+\begin{solution}
+  For $y = 0$, it is clear that $\|x\|\|y\| = 0 = \langle x,y\rangle$, so consider the case where $\|y\| > 0$. For $z = \frac y{\|y\|}$,  consider the function $g_x:\RR^n \to \RR$ by $g_x(z) = \langle x,z\rangle$. Note that $\|z\| = 1$.  We now solve the optimization problem: 
+  $$
+    \text{maximize }g_x(z)\text{ subject to }f(z): = \|z\|^2 = 1;
+  $$ 
+  by Lagrange multipliers.  That is, a solution $z^*$ satisfies
+  $$
+    \nabla g_x(z^*) = -\lambda \nabla f(z^*)\iff x_i = -2 \lambda z_i^*
+  $$
+  for all $i = 1\dots n$. So a solution $z^*$ has coordinates satisfying $z^*_i = \frac {-x_i}{2\lambda}$. For $z^*$ to satisfy the constraint $f(z^*) = 1$, 
+  $$
+    1 = \sum_{i=0}^n (z_i^*)^2 = \sum_{i=1}^n \frac {x_i^2}{4\lambda ^2} \iff \lambda = \pm\frac 12 \sqrt{\sum_{i=1}^n x_i^2}.
+  $$
+  Since $\{f(z)\}$ is compact, and $g_x$ is continuous on this set, we have that $g_x$ attains a maximum and minimum there, hence the two points classified above give the global maximum and minimum. So
+  $$
+    |\langle x,z\rangle| = |g_x(z)| \le |g_x(z^*)| = \left| \left(\sum_{i=1}^n x_i \frac{-x_i}{2\lambda } \right) \right|  = \left( \sum_{i=1}^n x_i^2 \right)^{1/2} = \|x \|.
+  $$
+  Substituting $z = \frac y{\|y\|}$ and multiplying both sides by $\|y\|$ yields the desired inequality.
+  
+\end{solution}
+
+\end{document}
