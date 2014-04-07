@@ -1,0 +1,266 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 9}
+\author{Kevin Joyce}
+\docdate{\today}
+
+
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+\newcommand{\FF}{\mathcal F}
+\renewcommand{\Re}{\mathrm{Re}\,}
+\renewcommand{\Im}{\mathrm{Im}\,}
+
+%\problem{{\bf D'Angelo 2.1.} Verify the following properties of an inner product space
+%\begin{enumerate}[(i)]
+%  \item $\langle u,v + w\rangle = \langle u,v \rangle + \langle u, w\rangle$
+%  \item $\langle u,cv\rangle = \bar c\langle u, v \rangle$
+%  \item $\langle 0,w\rangle = 0$ for all $w \in V$.  In particular $\langle 0, 0\rangle = 0$.
+%\end{enumerate}
+%}
+%
+%\begin{solution}
+%  For (i), observe
+%  $$
+%    \langle u, v+w\rangle = \bar{\langle v+w,u\rangle} = \bar{\langle v,u\rangle + \langle w,u\rangle} = \bar{\langle v,u\rangle} + \bar{\langle w,u\rangle} = \langle u,v \rangle + \langle u, w\rangle.
+%  $$
+%  Similarly, (ii) follows from
+%  $$
+%    \langle u,cv\rangle = \bar{\langle cv,u\rangle} = \bar{c\langle v,u\rangle} \bar c \bar{\langle v,u \rangle} = \bar c\langle u,v\rangle.
+%  $$
+%  Finally, (iii) follows from the fact that the scalar $0$ times the vector $0$ is $0$, hence $\langle 0,w\rangle = 0\langle 0,w\rangle = 0$.
+%\end{solution}
+
+\problem{ {\bf D'Angelo 2.6} Verify that $\CC^n$ and $\ell^2$ are complete. }
+
+\begin{solution}
+  Following the method presented by Nhan Nguyen, we will first show that $\ell^2$ is complete, then by noting that $\CC^n$ can embedded as closed subspace of $\ell^2$ via $(x_1,x_2,\dots,x_n) \to (x_1,x_2,\dots,x_n,0,0,\dots)$, completeness of $\CC^n$ follows as a corollary.   
+
+  We shall represent elements of $\ell^2$ as functions from $\NN$ to $\CC$.  Let $f_n:\NN \to \CC$ be Cauchy sequence in $\ell^2$.  For any  fixed $i \in \NN$, note that by adding squares,
+  $$|f_n(i) - f_m(i)|^2 \le \left( \sum_{j=1}^\infty (f_n(j) - f_m(j))^2 \right) = \|f_n - f_m\|_{\ell^2}^2,$$
+  hence each sequence $\{f_n(i)\}_{n=1}^\infty$ is a Cauchy sequence in $\CC$. By completeness there, for each $i \in \NN$ there exists a complex number, say $f(i)$, such that $f_n(i) \to f(i)$ as $n\to \infty$.  Take as our candidate limit of the Cauchy sequence $\{f_n \}$, and we must show that $f_n \to f$ in $\ell^2$ and that $f\in \ell^2$.
+
+  Let $\eps > 0$ be given, then 
+  $$
+    \| f_n - f_m \|_{\ell^2} = \left( \sum_{j=1}^\infty (f_n(j) - f_m(j) )^2\right)^{1/2} < \eps/2
+  $$
+  for $n>m\ge N$ for some given $N>0$.  By continuity of $\| \cdot \|_{\ell^2}$,
+  $$
+    \|f_n - f\|_{\ell^2} = \lim_{m\to\infty}\| f_n - f_m \|_{\ell^2} \le \eps/2 < \eps,
+  $$
+  hence $f_n \to f$ in $\ell^2$.
+
+  To see that $f\in \ell^2$, observe
+  $$
+    \|f\|_{\ell^2} \le \|f - f_n\|_{\ell^2} + \|f_n\|_{\ell^2} < 1 + \|f_n\|_{\ell^2}
+  $$
+  for sufficiently large $n$.
+     
+\end{solution}
+
+\problem{ {\bf D'Angelo 2.9} Show that the set of bounded linear operators on a Hilbert space $\mathcal H$, $\mathcal L(\mathcal H)$ is a complete normed vector space under the operator norm $\|L\|_{\mathcal L} = \sup_{\|z\|=1} \|L(z)\|$. }
+
+\begin{solution}
+  We first verify the norm axioms for $\|\cdot\|_{\mathcal L}$.  Clearly $\|L\|_{\mathcal L} \ge 0$ since $\|L(z)\| \ge 0$ for all $z \in \mathcal H$, and the operator norm of the zero operator is zero since the range is $\{0\}$.  Suppose $\|L\|_{\mathcal L} = 0$, then for each $x \not= 0$ in $\mathcal H$ 
+  $$
+    \frac {1}{\|x\|} \|L(x)\| = \left\| L\left(\frac x{\|x\|} \right) \right\| \le \|L\|_{\mathcal L} = 0,
+  $$
+  so $\|L(x)\| = 0$ which implies $L(x) = 0$ for each $x\not=0$, and $L(0) = 0$ by linearity. Hence $L$ is the zero map.
+
+  Clearly, $\|\alpha L\|_{\mathcal H} = \sup_{\|z\| =1} \|\alpha L(z)\| = |\alpha| \|L\|_{\mathcal H}$, and $\|L_1 + L_2\|_{\mathcal H} = \sup_{\|z\| = 1} \|L_1(z) + L_2(z)\| \le \|L_1\|_{\mathcal L} + \|L_2\|_{\mathcal L}$ by the triangle inequality for $\|\cdot\|$ and properties of supremum.
+    
+  For completeness, let $\{L_n\}$ be a Cauchy sequence in $\mathcal L(\mathcal H)$.  As in the previous problem, our candidate $L$ is given by evaluation at each $x \in \mathcal H$; i.e.~observe for each $x \in \mathcal H$
+  $$
+    \|L_n(x) - L_m(x)\| = \|x\| \left\|L_n\left(\frac x{\|x\|}\right) - L_m\left(\frac x{\|x\|}\right)\right\| \le \|x\| \| L_n - L_m \|_{\mathcal L}.
+  $$
+  Thus, for each fixed $x \in \mathcal H$, $\{L_n(x)\}$ is a Cauchy sequence in $\mathcal H$, and thus has a unique limit, say $L(x)$. Take $L$ to be the function that takes $x \to L(x)$.  We must show that $L_n \to L$ with respect to $\|\cdot\|_{\mathcal L}$ and that $L$ is a bounded linear function.
+
+  Let $\eps >0$ be given. Let $n>m$ both greater than or equal to a sufficiently large $N$ so that $\|L_n - L_m\|_{\mathcal L} < \eps/2$.  By the generic continuity of norms
+  $$
+     \|L_n - L\|_{\mathcal L}= \lim_{m\to\infty} \|L_n - L_m\|_{\mathcal L} \le \frac {\eps}2 < \eps.
+  $$
+
+  For linearity, we must show that $L(x+y) = L(x) + L(y)$ and proceed by approximating $L$ with $L_n$. That is,
+  \begin{align*}
+    \|L(x + y) - (L(x) + L(y))\| 
+    &= \|L(x+y) - L_n(x+y) + L_n(x+y) -(L(x) + L(y))\| \\
+    &\le \|L(x+y) - L_n(x+y)\| + \|L_n(x) - L(x)\| + \|L_n(y) - L(y)\|,
+  \end{align*}
+  where each term can be made arbitrarily small.
+
+  Again, approximating by $L_n$, we have that for a sufficiently large $n$
+  $$
+    \| L \|_{\mathcal L} \le \| L - L_n \|_{\mathcal L} + \|L_n\|_{\mathcal L} \le 1 + \|L_n\|_{\mathcal L},
+  $$
+  so $L$ is bounded.  Moreover, by continuity of norms, we now have that $\|L\|_{\mathcal L} = \lim \|L_n\|_{\mathcal L}$.
+\vspace{-.5em}
+\end{solution}
+
+\problem{ {\bf D'Angelo 2.11.} Let $P$ be a projection.  Verify that $I-P$ is a projection, such that $\mathcal R(P) = \mathcal N(I-P)$, and that $\mathcal H = \mathcal R(P) + \mathcal N(P)$.}
+
+\begin{solution}
+  By definition, $P=P^2$.  Observe that $(I-P)^2 = I - 2P + P^2 = I - 2P + P = I-P$.  If $y \in \mathcal R(P)$, then there exists an $x$ such that $Px = y$, so 
+  $$(I - P)y = y - Py = y - P^2 x = y - P x = y - y = 0$$.
+  Hence $y \in \mathcal N(I-P)$.  On the other hand, if $y \in N(I-P)$, then $0
+  = y - Py$, so $Py = y$, hence $y \in \mathcal R(P)$. We remark that a
+  symmetric identity holds by replacing $P$ with $I-P$, that is $\mathcal
+  R(I-P) = \mathcal N(P)$.  Now, take any $x \in \mathcal H$, and let $x - Px =
+  y$, hence $x = Px + y$.  By the previous remark, $y\in \mathcal N(P)$, as
+  desired.
+
+  We also remark that if $\mathcal R(P)$ has a complete orthonormal set, say
+  $\{y_n\}$, then $P x = \sum \langle x, y_k\rangle y_k$ for each $x \in
+  \mathcal H$.  Using the symmetric identity $\mathcal N(P) = \mathcal R(I-P)$,
+  we have that for any $x - \sum \langle x,y_k\rangle \in \mathcal R(I-P)$ and any fixed $y_n$,    
+  $$
+    \left \langle  x - \sum_k \langle x,y_k\rangle y_k,y_n\right\rangle 
+    = \langle x, y_n\rangle - \sum_k \langle x,y_k\rangle\langle  y_k, y_n \rangle  = \langle x, y_n\rangle - \langle x, y_n\rangle = 0
+  $$
+  Hence $\mathcal H = \mathcal R(P) \oplus \mathcal N(P)$.
+%  $$
+%    \left\langle\sum y_i , x\right\rangle = \sum\langle y_i,x\rangle = \sum \langle y_i,y - Py\rangle = \sum\langle y_i,y\rangle - \sum\langle y_i , \sum z_j\rangle
+%  $$ 
+\end{solution}
+
+\problem{ {\bf D'Angelo 2.17.} Find the orthogonal projection of the function given by $x^2$ onto the span of the functions $1$ and $x$ in $L^2[0,1]$. }
+\begin{solution}
+  We will first provide a general method (alternative to Gram-Schmidt) for finding projections onto \emph{finite} dimensional subspaces in a Hilbert space. Let $V$ be a finite dimensional subspace of a Hilbert space $H$ with basis $\{b_1,\dots,b_n\}$ and $w \not\in V$.  It suffices to minimize the quantity
+  \begin{align*}
+    \left\|w - \sum_{i=1}^n \alpha_i b_i \right\|^2 &= \left\langle w - \sum_{i=1}^n \alpha_i b_i,\,\,w - \sum_{i=1}^n \alpha_i b_i\right\rangle \\
+    &=\|w\|^2 - \sum_{i=1}^n\alpha_i\langle b_i,w\rangle - \sum_{j=1}^n \bar \alpha_j\langle w,b_j\rangle + \sum_{i=1}^n\sum_{j=1}^n \alpha_i \bar \alpha_j \langle b_i, b_j\rangle.
+  \end{align*}
+  We proceed by viewing the quantity above as a function in $n$
+  complex variables, say $F(\alpha_1,\dots,\alpha_n)$.  A local 
+  minimum of this function satisfies
+  $\frac{\del}{\del \alpha_i} F = 0$ and $\frac{\del}{\del \bar
+  \alpha_j} F = 0$ for all $i$ and $j$.  We calculate this, and move the negative quantity to the left hand side, so
+  $$
+    \langle b_i, w\rangle = \sum_{j=1}^n \bar \alpha_j \langle b_i, b_j \rangle
+    \quad \text{ and } \quad
+    \langle w, b_j \rangle = \sum_{i=1}^n \alpha_i \langle b_i, b_j \rangle.
+  $$
+  Note that these identities are equivalent by conjugate symmetry.  If we put
+  $\langle b_i, b_j\rangle$ into the $i,j$ elements of an $n\times n$ matrix
+  $B$, $\alpha_i$ into the $n\times 1$ vector $\alpha$, and $\langle w,b_i\rangle$
+  into the $n\times 1$ vector $w_b$, then the above identities are equivalent
+  to the matrix-vector equation
+  $$
+    \quad B\alpha = w_b.
+  $$
+  Since $B$ is self-adjoint and $\{b_i\}$ are linearly independent, the above matrix equation is guaranteed to have a unique solution. Since the global minimum guaranteed by Theorem 2.3 is also a local minimum, the solution to the matrix equation above is the unique local minimum.
+
+  We now apply this method to the example above. That is, we solve
+    \renewcommand{\arraystretch}{1.8}
+  \begin{align*}
+    &\begin{bmatrix}
+      \int_0^1 1\cdot1 & \int_0^1 1\cdot x\\
+      \int_0^1 x\cdot1 & \int_0^1 x\cdot x
+    \end{bmatrix}
+    \begin{bmatrix}
+      \alpha_0\\
+      \alpha_1
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      \int_0^1 x^2 \cdot 1 \\
+      \int_0^1 x^2 \cdot x
+    \end{bmatrix}\\
+    \iff
+    &\begin{bmatrix}
+      1 & \frac 12\\
+      \frac 12 & \frac 13 
+    \end{bmatrix}
+    \begin{bmatrix}
+      \alpha_0\\
+      \alpha_1
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      \frac 13 \\
+      \frac 14
+    \end{bmatrix}\\
+    \iff
+    &\begin{bmatrix}
+      \alpha_0\\
+      \alpha_1
+    \end{bmatrix}
+    = \frac{1}{\frac 13-\frac 14}\begin{bmatrix}
+      \frac 13 & -\frac 12\\
+      -\frac 12 &  1
+    \end{bmatrix}
+    \begin{bmatrix}
+      \frac 13 \\
+      \frac 14
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      -\frac 16 \\
+      1
+    \end{bmatrix}.\\
+  \end{align*}
+\end{solution}
+
+\problem{ {\bf D'Angelo 2.20.} Assume $\mathcal H$ is infinite dimensional.  Show that a sequence of orthonormal vectors does not converge, but does converge weakly to 0. }
+
+\begin{solution}
+  Let $\{y_k\}$ be a sequence of orthonormal vectors in $\mathcal H$ and $g \in \mathcal H$ be given. Bessel's inequality states
+  $$
+    \sum_{k=0}^\infty |\langle g,y_k\rangle|^2 \le \|g\|^2.
+  $$
+  Hence, the sequence $\{|\langle g,y_k\rangle |^2\}$ converges to 0 as $k\to \infty$, which implies $\langle g, y_k\rangle \to 0$.  Thus $y_k$ converges weakly to $0$.
+
+  However, observe
+  $$
+    \|y_n - y_m\|^2 = \langle y_n - y_m, y_n - y_m\rangle = \|y_n\|^2 - \langle y_n,y_m \rangle - \langle y_n,y_m \rangle + \|y_m\|^2 = 2.
+  $$
+  Thus, $y_n$ is not a Cauchy sequence in $\mathcal H$, and thus, does not converge.
+\end{solution}
+
+\problem{ {\bf D'Angleo 2.21.} Give an example of a linear map of $\RR^2$ such that $\langle Lu, u\rangle = 0$ for all $u$ but $L = 0$. }
+
+\begin{solution}
+  We can represent $L:\RR^2 \to \RR^2$ as a matrix, say
+  $$
+    [L] = \begin{bmatrix}
+      x & y \\
+      z & w
+    \end{bmatrix}.
+  $$
+  If we require $\langle Lu, u\rangle_{\RR^2} = 0$ for all $u = (a,b) \in \RR^2$, then
+  $$
+    \left\langle \begin{bmatrix}
+      x & y \\
+      z & w
+    \end{bmatrix}
+    \begin{bmatrix}
+      a \\ b
+    \end{bmatrix}
+    , 
+    \begin{bmatrix}
+      a \\ b
+    \end{bmatrix}
+    \right\rangle_{\RR^2}
+    = a^2 x + ab(y + z) + b^2 w = 0.
+  $$
+  So, if $x = w = 0$ and $y =1 $ and $z = -1$, then the above equality is satisfied. That is, the non-zero linear operator defined by $L(a,b) = (-b,a)$, has $\langle L(a,b), (a,b) \rangle_{\RR^2} = -ab + ba = 0$.
+\end{solution}
+\end{document}
