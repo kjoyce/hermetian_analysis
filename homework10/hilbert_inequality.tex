@@ -1,0 +1,50 @@
+\documentclass{homework} % comment to compile bare
+%\documentclass{amsart} % uncomment to compile bare
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{enumerate}
+\newtheorem{lemma}{Lemma}
+\newtheorem{thm}{Theorem}
+\newtheorem{ex}{Example}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Kevin Joyce}
+\course{Hilbert's Inequality and Polynomial Projection in $L^2$} % comment to compile bare
+\docdate{\today} % comment to compile bare
+\author{Kevin Joyce}
+\begin{document} 
+\newcommand{\eps}{\varepsilon}
+\newcommand{\del}{\partial}
+
+Hilbert's inequality states that for a sequence of absolutely square summable complex numbers, $\{z_n\}$ with $\sum |z_n|^2 < \infty$, then
+\begin{equation}
+  \left| \sum_{j,k=0}^\infty \frac{z_j\bar z_k}{1 + j + k}\right| \le \pi \sum_{k=0}^\infty |z_k|^2. \label{hilbert_ineq}
+\end{equation}
+Moreover, $\pi$ is the smallest possible constant in the above inequality \cite{dangelo}.  We note that if $C$ is an infinite matrix whose $j,k$ entry is given by $1/(1+j+k)$ for $j=0,1,\dots$ and $k=0,1,\dots$, then the left hand side of \eqref{hilbert_ineq} can be viewed as the quadratic form $z C \bar z$ where $z = (z_0,z_1,\dots)$.  A finite version of the matrix $C$ also appears when projecting elements of $L^2$, the Hilbert space of integrable functions with respect to the standard Hermetian integral inner product, onto the space spanned by monomials of the form $\{z^k\}$.  That is, it was shown that for the finite basis $\{z_0,z_1,\dots,z_n\}$ and $w \in L^2[0,1]$, the solution to the minimization problem
+\begin{equation}
+  \argmin_{\alpha_k\in \CC^n} \left\|w - \sum_{k=1}^n \alpha_k z_k\right\|^2 \label{projection}
+\end{equation}
+was equivalent to solving the matrix equation
+\begin{equation}
+  C^T \alpha = v_{z,w}
+\end{equation}
+where $w_{z,b}$ is a vector depending on inner products of $z^k$ and $w$.  
+
+For my project, I hope to investigate the relationship between these two
+problems further and hopefully formulate Hilbert's inequality as an appropriate
+projection problem.  In this way, it may be possible to say something useful
+about the sharpness of $\eqref{hilbert_ineq}$, which was not proved in
+\cite{dangelo}. This investigation will proceed by attempting to accomplish the following goals: generalize the projection
+statement \eqref{projection} to linear combinations of countably infinite sets and possibly to more general sets than $[0,1]$; Formulate
+a version Hilbert's inequality in the context of the general projection; Use the projection estimates
+to evaluate the sharpness of the inequality.
+
+The results of this work will culminate in a short technical report and presentation to be given during Spring semester finals week.
+
+\begin{thebibliography}{1}
+%    \bibitem{hinkley} D.~V.~Hinkley (1969). ``On the Ratio of Two Correlated Normal Random Variables.'' \emph{Biometrika}, {\bf 56}, pages 635-639. 
+%    \bibitem{marsaglia} G.~Marsaglia (1965). ``Ratios of Normal Variables and Ratios of Sums of Uniform Varliables.''  \emph{Journal of the American Statistical Association}, {\bf 60}, pages 193-204.
+    \bibitem{dangelo} D'Angelo, J. P. (2013). Hermitian Analysis. AMC, 10, 12.
+    \end{thebibliography}
+\end{document}
+
