@@ -1,0 +1,214 @@
+%\documentclass{homework} % comment to compile bare
+\documentclass{amsart} % uncomment to compile bare
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{enumerate}
+\newtheorem{lemma}{Lemma}
+\newtheorem{thm}{Theorem}
+\newtheorem{ex}{Example}
+
+\title{Kevin Joyce}
+%\course{Polynomial Differential Operators} % comment to compile bare
+%\docdate{\today} % comment to compile bare
+\author{Kevin Joyce}
+\begin{document} 
+\newcommand{\eps}{\varepsilon}
+\newcommand{\del}{\partial}
+\newcommand{\CC}{\ensuremath{\mathcal C}} % uncomment to compile bare
+\newcommand{\RR}{\ensuremath{\mathcal R}} % uncomment to compile bare
+
+\section{The characteristic polynomial} 
+
+Recall ODE's with linear constant coefficients of the form
+\begin{equation}
+  y^{(n)} + a_1 y^{(n-1)} + \dots + a_0y = f(t) \label{diffeq}
+\end{equation}
+have unique solutions  
+\begin{equation}
+  y(t) = y_h(t) + y_p(t)
+\end{equation}
+where $y_h(t)$ solves the associated \emph{homogeneous} equation
+\begin{equation}
+  y^{(n)} + a_1 y^{(n-1)} + \dots + a_0y = 0 \label{homo}
+\end{equation}
+and $y_p(t)$ is a particular solution to \eqref{diffeq}.  We have classified the solutions to the homogeneous equation by writing \eqref{homo} in the form $AY = Y'$ where 
+$$
+  Y = \begin{pmatrix}
+    y\\
+    y'\\
+    \vdots \\
+    y^{(n-1)}
+  \end{pmatrix}
+  \quad\text{ and }\quad
+  A = \begin{pmatrix}
+    0 & 1 & 0 & \cdots & 0 \\
+    0 & 0 & 1 & \cdots & 0 \\
+    \vdots & \vdots & \cdots & \ddots & \vdots \\
+    0 & 0 & \cdots & 0 & 1\\
+    -a_0 & -a_1 & \cdots & -a_{n-2} & -a_{n-1}
+  \end{pmatrix},
+$$
+and exponentiating $A$ for a given set of $n$ initial conditions; i.e. 
+\begin{equation}
+  Y = e^{At} Y_0 = P e^{\Lambda t} P^{-1} Y_0 \label{solution}
+\end{equation} 
+where $Y_0$ is an $n\times 1$ vector of arbitrary initial values and $A = P\Lambda P^{-1}$ is the Jordan decomposition of $A$.  Note that any eigenvalue satisfies $\det (A - \lambda I) = 0$. This determinant is relatively easy to compute using the Laplace expansion about the bottom row and the fact that the determinant of a lower triangular matrix is the product of the diagonal elements, so
+\begin{align}
+  &\det\begin{pmatrix}
+    -\lambda & 1 & 0 & \cdots & 0 \\
+    0 & -\lambda & 1 & \cdots & 0 \\
+    \vdots & \vdots & \cdots & \ddots & \vdots \\
+    0 & 0 & \cdots & -\lambda & 1\\
+    -a_0 & -a_1 & \cdots & -a_{n-2} & (-a_{n-1}-\lambda)
+  \end{pmatrix} = 0 \nonumber\\
+  \iff&
+  -a_0 -a_1\lambda - \dots - a_{n-2}\lambda^{n-2} - (a_{n-1} -\lambda)\lambda^{n-1} = 0 \nonumber\\
+  \iff&p(\lambda) := \lambda^n + a_{n-1}\lambda^{n-1} + \dots + a_1 \lambda + a_0 = 0. \label{charpoly}
+\end{align}
+
+The polynomial defined in equation \eqref{charpoly} is called the
+\emph{characteristic polynomial}.  Note that this is precisely the polynomial
+one would get if they replaced $\lambda$ with $y$ in the left hand side of
+$\eqref{homo}$ and substituted successive differentiation with multiplication.
+This is generally how it is presented in a first ODE's course, and we see that the condition that it be zero
+ coincides the linear algebara notioin of a characteristic polynomial for finding eigenvalues.   
+
+\section{Polynomial operators and complex exponential functions}
+
+We have shown that the characteristic polynomial, which in some sense determines
+the homogeneous solutions to \eqref{homo}, coincides with the polynomial
+operator which defines left hand side of \eqref{diffeq}.  We also know that the
+matrix exponential of $\Lambda t$ in the Jordan decomposition results in
+functions of the form $t^k e^{\lambda t}$, for $0\le k < n$, hence,
+\eqref{solution} implies that all such solutions are linear combinations of
+these.  It is natural consider this class of functions as ``right-hand-side''s
+of \eqref{diffeq}, since often these are also defined as solutions to some other constant coefficient ODE
+(think springs connected to other springs or RLC circuits in series).  It turns out
+that these functions have particularly nice particular solutions.
+
+Let us first establish some basic facts about polynomial operators with
+constant coefficients. Let $D$ denote the differential operator, then for any
+given polynomials $p$ and $q$, any sufficiently differentiable functions $f$
+and $g$, and any constant $c$, the following propositions are relatively easy to show 
+\begin{enumerate}[(i)] 
+\item $p(D)(f + g) = p(D)f + p(D)g$
+\item $p(D)(q(D)f) = (p(D)q(D)) f = (q(D)p(D)) f$
+\item $(p(D) + q(D))f = p(D)f + q(D)f$
+\item $p(D)(cf) = c\,p(D) f$.
+\end{enumerate}
+
+Using these facts, we can show that for exponential functions, polynomial operators act in a particularly nice way.
+\begin{lemma}
+  For any polynomial differential operator $p(D)$ and any complex exponential function $e^{\alpha t}$ with $\alpha \in \CC$ and $t \in \RR$, 
+  $$
+  p(D) e^{\alpha t} = p(\alpha) e^{\alpha t}.
+  $$
+\end{lemma}
+\begin{proof}
+  We need only expand $p(D)$, distribute, and compute,
+  $$
+    p(D) = (D^n + a_{n-1}D^{n-1} + \dots + Da_1 + a_0) e^{\alpha t} = \alpha^n e^{\alpha t} + a_n \alpha^{n-1} e^{\alpha t} + \dots + a_1 \alpha e^{\alpha t} + a_0 e^{\alpha t} = p(\alpha) e^{\alpha t}.
+  $$
+\end{proof}
+
+As an immediate consequence of this fact, we can find particular solutions for \eqref{diffeq} where $f(t) = e^{\alpha t}$ and $p(\alpha) \not=0$.  We state the result in the following theorem and provide a few examples.
+
+\begin{thm}
+  For the constant coefficient linear ODE of the form $p(D) y = e^{\alpha t}$, where $p(\alpha) \not=0$, we have $y(t) = \frac{1}{p(\alpha)} e^{\alpha t}$ as a particular solution.
+\end{thm}
+\begin{proof}
+  Using the properties of polynomial operators and the lemma, $p(D) \frac{1}{p(\alpha)} e^{\alpha t} = \frac{1}{p(\alpha)} p(D) e^{\alpha t} = 1 \, e^{\alpha t}$.
+\end{proof}
+
+\begin{ex} 
+  Consider the example given in \emph{D'Angelo Example 1.2.} - Find a particular solution for $(D-5)(D-3)y = e^t$
+\end{ex}
+{\bf Solution:}
+  We directly appeal to the theorem to obtain $y(t) = \frac{1}{(1-5)(1-3)} e^{t} = \frac 18 e^t$. Note that this agrees with the solution arrived at in \cite{dangelo} (pg. 14). 
+
+\begin{ex}
+  Find a particular solution for $(D - 2) y = \cos(3t)$.
+\end{ex}
+{\bf Solution:}
+We cannot directly apply the theorem yet.  One could proceed by writing
+$\cos(3t) = \frac 12 (e^{3ti} + e^{-3ti})$ and use the principle of
+superposition, however, we will proceed by solving a related problem and translating it back to the original problem.  This ``meta-technique'' is a powerful idea that is used quite often in mathematics.
+
+Let $z = y+ix$, and consider the complex ODE $(D - 2)z = e^{3ti}$. Note that
+the real part of $e^{3ti} = \cos(3t)$.  By the theorem, the solution to this
+ODE is given by $z = \frac 1{3i - 2} e^{3ti}$.  Now, we invoke the fact that
+complex numbers are equivalent if and only if their real and imaginary parts
+are equivalent; i.e. $y = \mathrm{Re}\, z = \mathrm{Re}\, \frac 1{3i - 2}
+e^{3ti} = \mathrm{Re}\, \frac 1{13} (-2 - 3i) (\cos 3t + i\sin 3t) = \frac
+1{13}(-2\cos 3t + 3\sin 3t)$.  Compare this with the method of undetermined
+coefficients for $y = c_1 \cos(3t) + c_2 \sin(3t)$, and you'll see that this method
+nicely consolidates the algebra using complex numbers.
+
+It remains to find a particular solution to $p(D)y = e^{\alpha t}$ when $p(\alpha) = 0$.  We will need the following lemma:
+\begin{lemma}
+  Suppose $f$ is a sufficiently differentiable function, $p(D)$ is a polynomial
+  differential operator, and $e^{\alpha t}$ is a complex exponential function
+  with $\alpha \in \CC$ and $t \in \RR$.  Then the following identity holds,
+  $$
+    p(D) e^{\alpha t} f = e^{\alpha t} p(D + \alpha) f.
+  $$
+\end{lemma}
+\begin{proof}
+First, note that $D^k e^{\alpha t} f = D^{k-1} (e^{\alpha} D f + \alpha e^{\alpha t}f) = D^{k-1}e^{\alpha t} (D - \alpha) f$.  Proceeding inductively, we have $e^{\alpha t} (D-\alpha)^k f$.  We now apply this identity to each term in $p(D)e^{\alpha t} f$ to arrive at the desired identity.
+\end{proof}
+
+Now, let us consider the ODE $p(D) y = e^{\lambda t}$ where $p(\lambda) = 0$. Let us write $p(D) = (D-\lambda)^kq(D)$ where $k$ is the first integer such that $q(\lambda) \not=0$.  Note $(D-\lambda) e^{\lambda t} = 0$, hence we can form a \emph{new homogeneous} problem
+\begin{equation}
+  (D-\lambda)p(D) y = 0 \iff (D-\lambda)^{k+1}q(D) y = 0.
+\end{equation}
+Using similar reasoning to \eqref{solution}, we have that homogeneous solutions are of the form
+\begin{equation}
+  \tilde y = c_0e^{\lambda t} + c_1t e^{\lambda t} + \dots + c_kt^k e^{\lambda t} + \sum q_{j}(t) \label{newhomo}
+\end{equation}
+where $q_j(t)=c_jt^je^{\lambda_j t}$ are solutions corresponding to the factorization of the polynomial $q$. Now, if we allow $p(D)$ to operate on $\tilde y$, 
+\begin{align*}
+  p(D) \tilde y 
+    &= (D-\lambda)^k q(D) \tilde y \\
+    &= 0 + q(D) (D-\lambda)^k c_k e^{\lambda t} t^k + 0 \\
+    &= c_k q(D) e^{\lambda t} (D-\lambda + \lambda)^k t^k \\
+    &= c_k q(D) e^{\lambda t} k! \\
+    &= c_k q(\lambda) k!e^{\lambda t}.\\
+\end{align*}
+So if $c_k = \frac 1{q(\lambda)k!}$ and $c_j = 0$ otherwise, then $\tilde y = \frac{t^k e^{\alpha t}}{q(\lambda)k!}$ is a particular solution for $p(D)y = e^{\lambda t}$. We remark that a similar technique can be used to motivate the method of undetermined coefficients.  See \cite{mit}.
+
+For this to be useful, we need to be able to factor $p(D) = (D-\lambda)^k q(D)$
+to obtain a particular solution. Note that if $\lambda$ is a root of order 1,
+which is to say $p(z) = (z-\lambda)q(z)$ where $q(\lambda) \not=0$, then
+$\left.\frac d{dz} p(z)\right|_{z=\lambda} = \left(q(z) +
+(z-\lambda)\frac{d}{dz} q(z)\middle)\right|_{z=\lambda} = q(\lambda)$. A nice
+exercise in advanced calcululs shows that $q$ is given by the first integer $k$
+such that $\left.\left[\frac d{dz}\right]^kp(z)\right|_{z=\lambda} \not=0$.  We state this
+result in the following theorem:
+\begin{thm}
+  For the constant coefficient linear ODE of the form $p(D) y = e^{\lambda t}$, where $p^{(j)}(\lambda)=0$ for $0\le j <k$ and $p^{(k)}(\lambda) \not= 0$ (i.e. $\lambda$ is a root of order $k$ for $p$), we have $$y(t) = \frac{t^k e^{\alpha t}}{k!p^{(k)}(\alpha)}$$ as a particular solution.
+\end{thm}
+
+Consider the following example
+\begin{ex}
+  Solve $(D^2 + 9)y = \cos 3t$ with $y(0) = 1$ and $y'(0) = 0$.
+\end{ex}
+{\bf Solution:}
+Note that the corresponding complex ODE is $(D^2 + 9)z = e^{3it}$ has $p(3i) = -9 + 9 =0$.  Note also $p'(3i) = 2\cdot 3i + 0 = 6i \not= 0$.  The theorem gives a particular solution as $z(t) = \frac{ te^{3it} }{ 6\i }$.  Equating real parts, we have a particular solution $y_p(t) = \frac t6 \sin 3t$.  The homogeneous solutions are given by $c_1 \cos 3t + c_2 \sin 3t$, so the general solution is
+$$
+  y(t) = c_1 \cos 3t + \left(c_2 + \frac t6\right) \sin 3t.
+$$
+Applying the initial conditions, we have $c_1 = 1$ and $c_2 = 0$, and we arrive at
+$$
+  y(t) = \cos 3t + \frac t6 \sin 3t.
+$$
+
+We remark that as $t\to \infty$, $|y(t)|$ is arbitarily large for certain values of $t' > t$, despite the forcing function $f(t) = \cos 3t$ begin bounded. This phenomenon is sometimes called \emph{resonance}. Moreover, the freqeuncies of forcing functions where resonance occurs depends completely upon the characteristic equation of the defined system; i.e. they are precicely the roots of $p(\lambda)$.  In fact, in view of Theorem 1, we see that for forcing functions $e^{\alpha t}$ with $\alpha \approx \lambda$ will have large amplitudes in the particular solution, since near roots of $p$, $\left| \frac 1{p(\alpha)} \right|$ is very large.  So, there is, in some sense, a continous transition from large amplitude solutions to unbounded ones as $\alpha$ approaches roots $\lambda$.  See the Beats lecture in \cite{mit} for more information.
+
+\begin{thebibliography}{1}
+%    \bibitem{hinkley} D.~V.~Hinkley (1969). ``On the Ratio of Two Correlated Normal Random Variables.'' \emph{Biometrika}, {\bf 56}, pages 635-639. 
+%    \bibitem{marsaglia} G.~Marsaglia (1965). ``Ratios of Normal Variables and Ratios of Sums of Uniform Varliables.''  \emph{Journal of the American Statistical Association}, {\bf 60}, pages 193-204.
+    \bibitem{dangelo} D'Angelo, J. P. (2013). Hermitian Analysis. AMC, 10, 12.
+    \bibitem{mit} Miller, H. and Mattuck, A. \emph{18.03 Differential Equations}, Spring 2010. (MIT OpenCourseWare: Massachusetts Institute of Technology), \\http://ocw.mit.edu/courses/mathematics/18-03-differential-equations-spring-2010\\ (Accessed 18 Mar, 2014). License: Creative Commons BY-NC-SA
+    \end{thebibliography}
+\end{document}
+

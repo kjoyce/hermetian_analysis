@@ -1,0 +1,135 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 6}
+\author{Kevin Joyce}
+\docdate{\today}
+
+
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+\newcommand{\FF}{\mathcal F}
+
+\problem{{\bf D'Angelo 1.51} Verify the formula $\Delta(u) = 4u_{z\bar z}$. }
+
+\begin{solution}
+  We calculate
+  \begin{align*}
+    \frac{\del^2}{\del z\del\bar z}u
+    &= \frac 12 \frac{\del}{\del z} \left(\frac{\del u}{\del x} + i \frac{\del u}{\del y}\right)\\
+    &= \frac 14 \left(\frac{\del}{\del x} - i \frac{\del}{\del y}\right) \left(\frac{\del u}{\del x} + i \frac{\del u}{\del y}\right)\\
+    &= \frac 14 \left(\frac{\del^2 u}{\del x^2} + \frac{\del^2 u}{\del y^2} + i \left(\frac{\del^2 u}{\del y\del x} - \frac{\del^2 u}{\del x\del y} \right)\right)\\
+    &= \frac 14 \left(\frac{\del^2 u}{\del x^2} + \frac{\del^2 u}{\del y^2}\right)\\
+    &= \frac 14 \Delta (u). 
+  \end{align*}
+\end{solution}
+
+\problem{{\bf D'Angelo 1.52} Show that the Laplacian in polar coordinates is given as follows: 
+$$
+  \Delta(u) = u_{rr} + \frac 1r u_r + \frac 1{r^2} u_{\theta\theta}
+$$
+}
+
+\begin{solution}
+Let $z = re^{i\theta}$, then by the chain rule
+\begin{align*}
+  \frac{\del u}{\del r} &= \frac{\del u}{\del z} e^{i\theta} + \frac{\del u}{\del \bar z} e^{-i\theta}\\
+  \frac{\del u}{\del \theta} &= \frac{\del u}{\del z} (i re^{i\theta}) + \frac{\del u}{\del \bar z} (-i re^{-i\theta}).\\
+\end{align*}
+\vspace{-1cm}
+Hence,
+\begin{align*}
+  \frac{\del^2 u}{\del r^2} 
+  &= \left(\frac{\del^2 u}{\del z^2} e^{i\theta} + \frac{\del^2 u}{\del z\del \bar z} e^{i\theta}\right) e^{i\theta} + \left(\frac{\del^2 u}{\del z\del \bar z} e^{i\theta} + \frac{\del^2 u}{\del \bar z^2} e^{i\theta}\right) e^{-i\theta}\\
+  &= e^{2i\theta} u_{zz} + 2 u_{z\bar z} + e^{-2i\theta} u_{\bar z\bar z},\\
+  \intertext{ and }
+  \frac{\del^2 u}{\del \theta^2} 
+  &= \frac{\del}{\del \theta}\left(\frac{\del u}{\del z} (i re^{i\theta})\right) + \frac{\del}{\del \theta}\left(\frac{\del u}{\del \bar z} (-i re^{-i\theta})\right)\\
+  &= \left(\frac{\del^2 u}{\del z^2} i re^{i\theta} + \frac{\del^2 u}{\del z\del \bar z} (-i re^{i\theta})\right) (i re^{i\theta}) + \frac{\del u}{\del z}(-re^{i\theta}) + \dots\\
+  &\quad \dots  \left(\frac{\del^2 u}{\del \bar z\del z} i re^{i\theta} + \frac{\del^2 u}{\del \bar z^2} (-i re^{i\theta})\right) (-i re^{-i\theta}) + \frac{\del u}{\del \bar z} (-r\theta e^{-i\theta})\\
+  &= r^2\left(-e^{2i\theta} u_{zz} + 2 u_{z\bar z} - e^{-2i\theta} u_{\bar z\bar z}\right) - r\left( u_ze^{i\theta} + u_{\bar z}e^{-i\theta}\right).\\
+\end{align*}
+Note $u_{rr} + \frac1{r^2} u_{\theta\theta} + \frac 1r u_{r} = 4 u_{z\bar z} = \Delta(u)$.
+\end{solution}
+
+\problem{{\bf D'Angelo 1.53} Use the previous exercise to show that the real and imaginary parts of $z^n$ are harmonic for $n$ a positive integer. }
+
+\begin{solution}
+  Let $z^n = r^n e^{in\theta}$, then
+  \begin{align*}
+    \Delta(z^n) 
+    &= n(n-1)r^{n-2}e^{in\theta} + \frac 1{r^2} (in)^2 r^n e^{in\theta} + \frac 1r n r^{n-1} e^{in\theta}\\
+    &= n^2r^{n-2}e^{in\theta} -nr^{n-2}e^{in\theta} - n^2 r^{n-2} e^{in\theta} + n r^{n-2} e^{in\theta}\\
+    &= 0.
+  \end{align*}
+\end{solution}
+
+\problem{{\bf D'Angelo 1.54} Given the series $\sum a_nz^n$, put $L = \lim\sup(|a_n|^{1/n})$.  Show that the radius of convergence $R$ satisfies $R=\frac 1L$.  }
+
+\begin{solution}
+  We prove the statement for both $R$ and $L$ in $(0,\infty)$.  By Theorem
+  1.10, $R = \sup\{r\,:\,|a_n|r^n\text{ is a bounded sequence}\}.$ 
+
+  Let $\eps>0$ be given, and \mbox{$0<R-\eps<r<R$} so $|a_n|r^n \le M$ for some $M<\infty$.
+  Hence, $|a_n| \le \frac M{r^n}$, and thus $|a_n|^{1/n} \le \frac {M^{1/n}}r$.
+  Since the sequence $M^{1/n}\to 1$, there exists an $N>0$ so that $|a_n|^{1/n}
+  \le \frac {1+\eps}r$ when $n\ge N$.  
+  %Now, take $m>0$ so that $\sup_{n\ge m}|a_n|^{1/n} -  L< \eps$, so for $n \ge m,N$
+  Since $\sup_{n\ge m}|a_n|^{1/n}$ is decreasing, 
+  \begin{align*}
+    &L\le\sup_{n\ge m}|a_n|^{1/n} \le \frac{1+\eps}r\\
+    \implies& R < r - \eps \le \frac 1L.\\
+  \end{align*}
+
+  On the other hand, let $m>0$ so that $\sup_{n\ge m}|a_n|^{1/n} - L\le\eps$, so $\sup_{n\ge m}|a_n| \le (L+\eps)^n$.  Hence, $|a_n|\left(\frac 1{L+\eps}\right)^n \le 1$ for $n\ge m$, and $|a_n|\left(\frac 1{L+\eps}\right)^n$ is bounded for $n< m$, since it is a finite list. Thus
+  $$
+    \frac 1{L+\eps} \le R \implies \frac 1R \le L + \eps \implies \frac 1R \le L \implies \frac 1L \le R.
+  $$
+\end{solution}
+
+\problem{{\bf D'Angelo 1.55} Give three examples of power series with radius of convergence 1 with the following true.  The first series converges at no points of the unit circle, the second series converges at some but not all points of the unit circle, and the third series converges at all points of the unit circle.  }
+
+\begin{solution}
+  Denote the power series as $\sum a_n z^n$.  In the first case, consider $a_n
+  = n$. Note that $|\frac{ a_{n+1} z^{n+1}}{a_nz^n} | = \frac{(n+1) r^{n+1}}{nr^n} = \frac{n+1}{n}r$.  So the power series
+  converges when $r<1$, and since $a_n = n$ is unbounded, diverges on the circle.  If $a_n = \frac 1n$, then 
+  $|\frac{ a_{n+1} z^{n+1}}{a_n z^n}| = \frac{n}{n+1} r$, so the power series converges when $r < 1$ and diverges for $r >1$. When $r = 1$, it converges for $z=-1$, but diverges for $z=1$. In the last case, let $a_n = \frac 1{n^2}$.  Note $|\frac{a_{n+1}z^{n+1}}{a_nz^n}| = \frac{n^2}{(n+1)^2} r$. So the power series converges for $r<1$ and diverges for $r>1$.  Moreover, when $r=1$, the serices converges as a $p$-series.
+
+\end{solution}
+
+\problem{{\bf D'Angelo 1.56} Let $p$ be a polynomial.  Show that the series $\sum(-1)^np(n)$ is Abel summable.  More generally, for $|z| < 1$, show that $\sum_0^\infty p(n) z^n$ is a polynomial in $\frac 1{1-z}$ with no constant term.  Hence, the limit, as we approach the unit circle from within, exists at every point except 1.}
+
+\begin{solution}
+We only prove the general case and proceed by induction on the degree of $p$, say d.  When $d=0$, it is clear that $\sum c_0 n z^n = \frac c{1-z}$. Now, observe for a $dth$ degree polynomial
+\begin{align*}
+  \sum p(n) z^n 
+  &=\sum \left(c_d n^{d+1} + c_{d-1} n^{d} + \dots c_0\right) z^n \\
+  &= \sum c_n n^{d+1} z^n + \sum (c_{n-1} n^{d-1} + \dots + c_0) z^n \\
+  &= \sum c_n n^{d} \frac d{dz} z^{n+1} + \sum (c_{n-1} n^{d-1} + \dots + c_0) z^n. \\
+%  &= \sum c_n n^{d-1} \left(\frac{d}{dz} z^{n+1} - z^n\right) + \sum (c_{n-1} n^{d-1} + \dots + c_0) z^n, \\
+\end{align*}
+
+We invoke the induction hypothesis, and the fact that the first sum is a power series to interchange the order of $\frac d{dz}$ and $\sum$.
+
+%where we used the fact that $nz^n = \frac{d}{dz} z^{n+1} - z^n$.  Now we can invoke the induction hypothesis for $d-1$.  We also use the uniform and absolute convergence of $\frac d{dz} \sum c_n n^{d-1} z^{n+1}$, to interchange the order of $\frac d{dx}$ and $\sum$.
+\end{solution}
+
+\end{document}

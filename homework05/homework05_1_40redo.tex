@@ -1,0 +1,73 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 5}
+\author{Kevin Joyce}
+\docdate{\today}
+
+
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+\newcommand{\FF}{\mathcal F}
+
+\problem{{\bf D'Angelo 1.40.} Assume that $f:\SS^1\to \CC$ is $k$ times continuously differentiable.  Show that there is a constant $C$ such that for $n>0$
+$$
+  |\hat f(n)| \le \frac C{n^k}.
+$$
+}
+
+\begin{solution}
+First, observe 
+\begin{align*}
+ \FF(f^{(j)})(n) &= \int_0^{2\pi} f^{(j)}(x) e^{-inx}\,dx \\
+ &= \left. f^{(j-1)}(x)e^{-inx} \right|_{x=0}^{2\pi} + \frac {in}{2\pi} \int_0^{2\pi} f^{(j-1)}e^{-inx}\,dx\\
+ &= 0 + in\FF(f^{(j-1)})(n).
+\end{align*}
+After $j-1$ more integration by parts, we have 
+$$
+  \FF(f^{(j)})(n) = (in)^j \FF(f)(n).
+$$
+Hence,
+\begin{align*}
+  \|\FF(f)\|_{\sup n} &= \frac{\|\FF(f^{(j)})\|_{\sup n}}{n^k} \le \frac{\|f^{(j)}\|_{L_1}}{n^k}
+\end{align*}
+which is finite since $f^{(j)}$ is continuous on the compact set $\SS^1$.  
+%We argue by induction.  For the base case assume $f:\SS^1 \to \CC$ is once continuously differentiable, then the fundamental theorem of calculus implies $f(x) - f(0) = \int_0^x f'(t)dt$$f'$, and in particular, $\frac 1{2\pi} \int f'(u)du = f(2\pi) - f(0) = 0$. Lemma 1.8. implies
+%  $$
+%    \FF(f-f(0))(n) = \frac{ \FF(f')(n) }{in}.
+%  $$
+%Note $\FF(f - f(0)) = \FF(f)(n) - \FF(f(0))(n) = \FF(n)$ for $n>0$.  Hence
+%$$
+%  |\FF(f)(n)|= \frac{ |\FF(f')(n)| }{n} \le \frac{\|f'\|_{L1}}{n},
+%$$
+%is bounded since $f'$ is continuous on $S^1$.
+%
+%Now, suppose that 
+%$$
+%  |\FF(f)(n)| \le \frac{C}{n^k}
+%$$
+%for each $f:\SS^2\to \CC$ that is $k$ times continuously differentiable.  Integrating by parts, we have
+%$$
+%  \FF(f^{(k)}) = \frac 1{}
+%$$
+\end{solution}
+
+\end{document}

@@ -75,12 +75,12 @@ which is finite since $f^{(j)}$ is continuous on the compact set $\SS^1$.
 \begin{solution}
   We calculate
   \begin{align*} 
-    \int_{-\pi}^{\pi} f(x) e^{-inx}\,dx 
-    &= \int_{-\pi}^{\pi} f(x) \cos(nx)\,dx - i \int_{-\pi}^{\pi} f(x) \sin(nx)\,dx \\
-    &= 0 -2i \int_0^\pi \sin(nx)\,dx \\
-    &= \frac{-2i (\cos(n\pi) - 1)}{n} \\
+    \frac 1{2\pi} \int_{-\pi}^{\pi} f(x) e^{-inx}\,dx 
+    &= \frac 1{2\pi} \int_{-\pi}^{\pi} f(x) \cos(nx)\,dx -  \frac i{2\pi}\int_{-\pi}^{\pi} f(x) \sin(nx)\,dx \\
+    &= 0 -\frac{i}{\pi} \int_0^\pi \sin(nx)\,dx \\
+    &= \frac{-i (\cos(n\pi) - 1)}{\pi n} \\
     &= \begin{cases}
-      \ds{\frac{4i}{n}} \quad\text{if $n$ is even}\\
+      \ds{\frac{2i}{\pi n}} \quad\text{if $n$ is even}\\
       0\quad\text{ otherwise.}
     \end{cases}
   \end{align*}
@@ -116,17 +116,17 @@ $$
 $$
 \end{solution}
 
-\problem{{\bf D'Angelo 1.49.} Derive the Weierstrass approximation theorem from Corollary 1.8.  }  
-
-\begin{solution}
-The Weierstrass approximation theorem stats that for any continuous $f:[a,b] \to \CC$, for any $\eps >0$, there exists a polynomial $p$ so that 
-$$
-  \|p - f\|_{\sup} < \eps.
-$$
-
-Without loss of generality, we can consider $f$ on the circle by applying the continuous transformation 
-\end{solution}
-
+%\problem{{\bf D'Angelo 1.49.} Derive the Weierstrass approximation theorem from Corollary 1.8.  }  
+%
+%\begin{solution}
+%The Weierstrass approximation theorem stats that for any continuous $f:[a,b] \to \CC$, for any $\eps >0$, there exists a polynomial $p$ so that 
+%$$
+%  \|p - f\|_{\sup} < \eps.
+%$$
+%
+%Without loss of generality, we can consider $f$ on the circle by applying the continuous transformation 
+%\end{solution}
+\newpage
 \problem{{\bf D'Angelo 1.50.} If $\{s_n\}$ is a monotone sequence of real numbers, show that the averages $\sigma_N = \frac 1N \sum_{j=1}^N$ also define a monotone sequence.  Give an example where the converse is false.  }
 
 \begin{solution}
@@ -135,15 +135,26 @@ Without loss of generality, we can consider $f$ on the circle by applying the co
     \sigma_{N+1} - \sigma_N 
     &= \frac{s_1 + \dots + s_{N+1}}{N+1} - \frac{s_1 + \dots + s_N}{N} \\
     &= \frac{N(s_1+\dots + s_{N+1}) - (N+1)(s_1+\dots + s_N)}{N(N+1)}\\
-    &= \frac{Ns_{N+1} - (s_1+\dots + s_N)}{N(N+1)}\\
+    &\stackrel{\dagger}= \frac{Ns_{N+1} - (s_1+\dots + s_N)}{N(N+1)}\\
     &= \frac{(s_{N+1} - s_1) + (s_{N+1} - s_2) + \dots + (s_{N+1} - s_N)}{N(N+1)}\\
     &\ge 0 
   \end{align*}
   by monotonicity.
 
-  For the converse assertion, consider the sequence $\{s_n\}$ given by $s_n = \frac{(-1)^{n+1}}{n}$. This sequence is clearly non-monotonic, yet
+  For the converse assertion, consider the sequence $\{s_n\}$ given by $s_n = \left(-\frac{1}{2}\right)^n$. This sequence is clearly non-monotonic, yet continuing from $\dagger$
   \begin{align*}
-    \sigma_n = 
+    \sigma_{N+1} - \sigma_{N} &\stackrel{\dagger}= \frac{N\left(-\frac 12\right)^{N+1} - \ds{\sum_{n=1}^N \left(-\frac 12\right)^n}}{N(N+1)}\\
+    &= \frac{N\left(-\frac 12\right)^{N+1} + \frac 13\left(1-\left(-\frac 12\right)^N\right)}{N(N+1)}\\
+    &= \frac{\frac 13\left(1-(\frac32 N+1)\left(-\frac 12\right)^N\right)}{N(N+1)}.\\
   \end{align*}
+
+  It suffices to show that $1-(\frac32 N+1)\left(-\frac 12\right)^N$ is
+  non-negative. Let $f(x) = 1 - (\frac 32 x + 1)2^{-x}$ and observe that $f(N) \le 1-(\frac 32 N +1)\left(-\frac 12 \right)^N$. Note that $f'(x) =
+  -\frac 32 2^{-x} + (\ln 2) 2^{-x}(\frac 32 +1) = \ell(x) 2^{-x}$.  Since
+  $\ell$ is a line with positive slope, $f$ has a global minimum either at
+  $x=0$ or the root of $\ell$. Now, note $f(0) = 1$, $f(1) = -\frac 14$, and
+  $f(2) = 0$, so by the continuity of $f'$, the global minimum of $f$ occurs in
+  $[0,2)$.  Thus, the quantity is non-negative for $N \ge 2$. Finally, observe for $N=1$,
+  $1 - (\frac 32 1 + 1)\left(-\frac 12\right)^1 \ge 0$.
 \end{solution}
 \end{document}

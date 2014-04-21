@@ -1,0 +1,56 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 4}
+\author{Kevin Joyce}
+\docdate{\today}
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+
+\problem{{\bf D'Angelo 1.38.} Find the Fourier series for $\cos^{2N}(\theta)$.}
+
+\begin{solution}
+Using the complex identity for $\cos(\theta)$, we calculate
+\begin{align*}
+  \cos^{2N}(\theta) 
+  &= \frac{1}{2^{2N}} (e^{i\theta} + e^{-i\theta})^{2N}\\
+  &= \frac{1}{2^{2N}} \sum_{j=0}^{2N} \binom{2N}j e^{i\theta j}e^{-i\theta(2N-j)} \\
+  &= \frac{1}{2^{2N}} \sum_{j=0}^{2N} \binom{2N}j e^{i\theta(2N-2j)} \\
+  &= \frac{1}{2^{2N}} \left(\sum_{j=0}^{N}\binom{2N}j  e^{2i\theta(N-j)} + \sum_{j=N+1}^{2N}\binom{2N}j  e^{2i\theta(N-j)}\right)\\
+  &\stackrel\dagger= \frac{1}{2^{2N}} \left(\sum_{k=0}^{N} \binom{2N}{N-k}e^{2i\theta k} + \sum_{k=1}^{N} \binom{2N}{N+k} e^{-2i\theta k}\right)\\
+  &= \frac{1}{2^{2N}} \sum_{k=-N}^{N} \binom{2N}{N-k}e^{2i\theta k} \\
+%  &= \frac{1}{2^{2N}} \left(\sum_{k=0}^{N} \binom{2N}{k}e^{2i\theta k} + \sum_{k=1}^{N} \binom{2N}{N+k} e^{-2i\theta k}\right)\\
+  &= \sum_{k=-N}^N c_k e^{i\theta k} \quad \text{ where } c_k = \frac {\binom{2N}{N-k}}{2^{2N}}\text{ if $k$ is even, $0$ otherwise.}
+\end{align*}
+
+Incidentally, we can easily calculate $\int \cos^{2N}$ from $\dagger$ by
+\begin{align*}
+\int \cos^{2N}(\theta)\, d\theta 
+  &\stackrel\dagger= \frac{1}{2^{2N}} \sum_{k=-N}^{N} \binom{2N}{N-k}\int e^{2i\theta k}d\theta \\
+  &= \frac{1}{2^{2N}} \left( \theta + \sum_{k=1}^{N} \binom{2N}{N-k}\frac 1{2ik} e^{2i\theta k} - \sum_{k=1}^{N} \binom{2N}{N+k}\frac 1{2ik} e^{-2i\theta k}\right) + c \\
+  &= \frac{1}{2^{2N}} \left( \theta + \sum_{k=1}^{N} \binom{2N}{2N - (N+k)}\frac 1{2ik} e^{2i\theta k} - \sum_{k=1}^{N} \binom{2N}{N+k}\frac 1{2ik} e^{-2i\theta k}\right) + c \\
+  &= \frac{1}{2^{2N}} \left( \theta + \sum_{k=1}^{N} \frac 1{2ik} \binom{2N}{N+k}\frac 1{2ik} \left(e^{2i\theta k} - e^{-2i\theta k}\right)\right) + c \\
+  &= \frac{1}{2^{2N}} \left( \theta + \sum_{k=1}^{N} \frac 1{2ik} \binom{2N}{N+k}\frac 1{k} \sin(2k\theta) \right) + c \\
+\end{align*}
+\end{solution}
+
+\end{document}
+

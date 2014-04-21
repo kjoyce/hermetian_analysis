@@ -1,0 +1,66 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 11.08.0 ] */
+
+/* [wxMaxima: input   start ] */
+(1,2) - (3,4);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+[1,2] - [3,4];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+norm([1,2]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+[1,1] . [3,4];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(u,v,w):= (v-2*w).(v-2*w) +(u-w).(u-w) - (u+2*w).(u+2*w) - (v+w).(v+w);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f([1,2],[3,4],[3,2]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+u:[1,2]; v:[3,4]; w:[3,2];
+4*(u+v).w;
+2*(u.u + (v+w).(v+w)) - 2*( (u-w).(u-w) + v.v);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+u.u;
+2*(u+w).(u+w) + 2*w.w - (u+2*w).(u+2*w);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+n2(u):=u.u;
+4*(u+v).w;
+4*u.w + 4*v.w;
+4*n2(u+w) - 4*n2(u-w) + 4*n2(v+w) - 4*n2(v-w);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+96*4;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+ratsimp(n2(v-2*%i*w) + n2(v + 2*w) + n2(u - w) + n2(u+%i*w));
+conjugate(%i);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+n2(u):= u.conjugate(u);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+
+ratsimp(n2(v - 2*%i*w) + n2(v + 2*w) +    n2(u - w) + n2(u + %i*w));
+ratsimp(n2(u + 2*w) +    n2(u + 2*%i*w) + n2(v + w) + n2(v + %i*w));
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

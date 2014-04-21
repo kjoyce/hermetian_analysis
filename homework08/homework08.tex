@@ -1,0 +1,134 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 7}
+\author{Kevin Joyce}
+\docdate{\today}
+
+
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+\newcommand{\FF}{\mathcal F}
+\renewcommand{\Re}{\mathrm{Re}\,}
+\renewcommand{\Im}{\mathrm{Im}\,}
+
+%\problem{{\bf D'Angelo 2.1.} Verify the following properties of an inner product space
+%\begin{enumerate}[(i)]
+%  \item $\langle u,v + w\rangle = \langle u,v \rangle + \langle u, w\rangle$
+%  \item $\langle u,cv\rangle = \bar c\langle u, v \rangle$
+%  \item $\langle 0,w\rangle = 0$ for all $w \in V$.  In particular $\langle 0, 0\rangle = 0$.
+%\end{enumerate}
+%}
+%
+%\begin{solution}
+%  For (i), observe
+%  $$
+%    \langle u, v+w\rangle = \bar{\langle v+w,u\rangle} = \bar{\langle v,u\rangle + \langle w,u\rangle} = \bar{\langle v,u\rangle} + \bar{\langle w,u\rangle} = \langle u,v \rangle + \langle u, w\rangle.
+%  $$
+%  Similarly, (ii) follows from
+%  $$
+%    \langle u,cv\rangle = \bar{\langle cv,u\rangle} = \bar{c\langle v,u\rangle} \bar c \bar{\langle v,u \rangle} = \bar c\langle u,v\rangle.
+%  $$
+%  Finally, (iii) follows from the fact that the scalar $0$ times the vector $0$ is $0$, hence $\langle 0,w\rangle = 0\langle 0,w\rangle = 0$.
+%\end{solution}
+
+\problem{ {\bf D'Angelo 2.5.} Let $V$ be a real or complex vector space with a norm.  Show that this norm comes from an inner product if and only if it satisfies the parallelogram law; i.e. for each vector $z$ and $w$,
+$$
+  \|u+v\|^2 + \|u-v\|^2 = 2\|u\|^2 + 2\|v\|^2.
+$$
+}
+
+\begin{solution}
+  It has already been shown that the parallelogram law is satisfied
+  in an inner product space, so we proceed in showing that the parallelogram law induces an inner product.  For a complex vector space, define for
+  each vector $u$ and $v$
+  $$
+    f(u,v) = \frac{1}{4} \left(\|u + v\|^2 - \|u - v\|^2  + i\|u + iv\|^2 - i\|u - iv\|^2 \right).
+  $$
+  Note that 
+  $$
+    f(u,u) = \frac 14\left(\|2 u\|^2 - 0 + |1+i|^2 \|u\|^2 - |1 + i|^2 \|u\|^2 \right)= \|u\|^2,
+  $$
+  hence, $f$ is positive definite and if $f$ can be shown to satisfy the definition of an inner product, it induces the given norm. (For reference, we prove the properties in the order (4)-done (3) (1) (2) of the text.)
+
+  First, note
+  \begin{align*}
+  \bar{f(u,v)} &= \frac{1}{4} \left(\|u + v\|^2 - \|u - v\|^2  - i\|u + iv\|^2 + i\|u - iv\|^2\right)\\
+  &= \frac{1}{4} \left(\|v + u\|^2 - |-1|\,\|v - u\|^2  - i|-i|\,\|v - iu\|^2 + i|-i|\,\|v + iu\|^2\right)\\
+  &= f(v,u).
+  \end{align*}
+
+  Now, to see linearity in the first slot, consider the following calculation,
+  \begin{align*}
+    \Re 4f(u+v,w) 
+      &= \|u+v+w\|^2 - \|u+v-w\|^2  \\
+      &= \|u+v+w\|^2 + \|u-(v+w)\|^2 - (\|(u-w)-v\|^2 + \|(u-w) +v\|^2)  \\
+      &= 2\|u\|^2+ 2\|v+w\|^2 - (2\|(u-w)\|^2 + 2\|v\|^2).  \\
+  \intertext{Using symmetry, we also have}
+    \Re 4f(v+u,w) &= 2\|v\|^2+ 2\|u+w\|^2 - (2\|(v-w)\|^2 + 2\|u\|^2).  \\
+  \intertext{Adding these, dividing by 8, and rearranging terms we have }
+    \Re f(u+v,w) &= \frac 14( \|u+w\|^2 - \|u-w\|^2 + \|v+w\|^2 \|v-w\|^2 ) = \Re f(u,w) + \Re(f,w). 
+  \end{align*}
+  Note,
+  \begin{align*}
+    \Im 4f(u+v,w) &= \|(u+v)+iw\|^2 - \|(u+v) - iw\|^2 = \Re4f(u+v,iw),
+  \intertext{hence,}
+    \Im 4f(u+v,w) &= \Re \Big[4f(u,iw) + 4f(v,iw)\Big] = \Im\Big[4f(u,w) + 4f(v,w)\Big],
+  \end{align*}
+  by linearity of both $\Re$ and $\Im$.  Having equated real and imaginary
+  parts, the identity $f(u+v,w) = f(u,w) + f(v,w)$ holds. (Credit and thanks is due to Nhan Nyugen for a very helpful suggestion that greatly simplified the calculation above!)
+  
+  We proceed in showing $f(zu,v) = zf(u,v)$ for $z\in\CC$ and fixed $u,v \in V$ by cases.  First note,
+  $$
+    f(-u,v) + f(u,v) = f(-u+u,v) = f(0,v) = 0 + 0 =0.
+  $$
+  and
+  \begin{align*}
+    f(iu,v) &= \frac{1}{4} \left(\|iu + v\|^2 - \|iu - v\|^2  + i\|iu + iv\|^2 - i\|iu - iv\|^2\right)\\
+            &= \frac{1}{4} \left(|i|\,\|u - iv\|^2 - \|iu - v\|^2  + i|i|\,\|u + v\|^2 - i|i|\,\|u - v\|^2\right)\\
+            &= \frac{i}{4} \left(-i\|u - iv\|^2 + i\|iu - v\|^2  + \|u + v\|^2 - \|u - v\|^2\right)\\
+            &= if(u,v). 
+  \end{align*}
+
+  For any rational
+  number, say $\frac pq$, we use can use linearity as follows
+  $$
+  f\left(\frac pq u,v\right) = f\left(\sum_{i=1}^p\frac 1q u,v \right) =  \sum_{i=1}^pf\left(\frac 1q u,v \right) = pf\left(\frac 1q u,v\right).
+  $$
+  Also
+  $$ 
+    q f\left(\frac 1q u,v\right) = \sum_{i=1}^qf\left(\frac 1q u,v\right) = f\left(\sum_{i=1}^q\frac 1q u,v\right) = f(u,v),
+  $$
+  hence $f\left(\frac 1q,v\right) = \frac 1q f(q,v)$ and with the last result shows $f\left(\frac pq u,v\right) = \frac pq f(u,v)$.
+
+  The last three results combined show that for any complex numbers of the form $z_n = x_n + iy_n$ where $x_n,y_n$ are rational, we have
+  $$
+  f(z_n u,v) = f((x_n + iy_n)u,v) = x_n f(u,v) + iy_n f(u,v) = z_n f(u,v).
+  $$
+  Now, we remark that $f$ is a continuous composition of norms, so it is clearly continuous. Moreover, for any complex number, say $z = x + iy$, by the density of the rationals there exists sequences of rational numbers $x_n \to x$ and $y_n \to y$, and thus 
+  $$
+    f(z u, v) = f( \lim z_n u, v) = \lim f( z_n u,v) = \lim z_n f(u,v) = z f(u,v).
+  $$
+  
+
+
+\end{solution}
+\end{document}

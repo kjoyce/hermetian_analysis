@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.6.16)  3 MAR 2014 18:26
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.9)  11 MAR 2014 08:08
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**homework05.tex
-(./homework05.tex
+**homework06.tex
+(./homework06.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, loaded.
+yphenation, ibycus, monogreek, greek, ancientgreek, loaded.
 (/home/kjoyce/texmf/tex/homework.cls
 Document Class: homework 2011/02/10 Homework Class file by Kevin Joyce
 (/home/kjoyce/texmf/tex/assessment.cls
@@ -621,8 +621,8 @@ x.code.tex
 File: tikzlibrarymatrix.code.tex 2008/06/18 v2.10 (rcs-revision 1.2)
 )
 \c@lemma=\count139
- (./homework05.aux)
-\openout1 = `homework05.aux'.
+ (./homework06.aux)
+\openout1 = `homework06.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
@@ -701,22 +701,22 @@ driver: pdftex
 LaTeX Info: Redefining \ref on input line 20.
 \c@lstlisting=\count145
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for U+msa on input line 35.
+LaTeX Font Info:    Try loading font information for U+msa on input line 31.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 35.
+LaTeX Font Info:    Try loading font information for U+msb on input line 31.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 35.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 31.
 
 (/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 35.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 31.
 
 (/usr/share/texmf-texlive/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -730,25 +730,25 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ] [2] [3]
-(./homework05.aux) ) 
+(./homework06.aux) ) 
 Here is how much of TeX's memory you used:
- 14623 strings out of 495061
- 261387 string characters out of 1182621
- 321013 words of memory out of 3000000
- 17473 multiletter control sequences out of 15000+50000
- 11451 words of font info for 48 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
- 49i,19n,53p,791b,336s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 14613 strings out of 494985
+ 261296 string characters out of 1181035
+ 324092 words of memory out of 3000000
+ 17476 multiletter control sequences out of 15000+50000
+ 10253 words of font info for 42 fonts, out of 3000000 for 9000
+ 73 hyphenation exceptions out of 8191
+ 49i,11n,53p,791b,278s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
 bx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></
 usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
-nts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/s
-hare/texmf-texlive/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on homework05.pdf (3 pages, 112124 bytes).
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-texlive
+/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1
+/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
+onts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.
+pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
+hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on homework06.pdf (3 pages, 118503 bytes).
 PDF statistics:
  55 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

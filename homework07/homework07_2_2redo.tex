@@ -1,0 +1,94 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 7}
+\author{Kevin Joyce}
+\docdate{\today}
+
+
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+\newcommand{\FF}{\mathcal F}
+
+%\problem{{\bf D'Angelo 2.1.} Verify the following properties of an inner product space
+%\begin{enumerate}[(i)]
+%  \item $\langle u,v + w\rangle = \langle u,v \rangle + \langle u, w\rangle$
+%  \item $\langle u,cv\rangle = \bar c\langle u, v \rangle$
+%  \item $\langle 0,w\rangle = 0$ for all $w \in V$.  In particular $\langle 0, 0\rangle = 0$.
+%\end{enumerate}
+%}
+%
+%\begin{solution}
+%  For (i), observe
+%  $$
+%    \langle u, v+w\rangle = \bar{\langle v+w,u\rangle} = \bar{\langle v,u\rangle + \langle w,u\rangle} = \bar{\langle v,u\rangle} + \bar{\langle w,u\rangle} = \langle u,v \rangle + \langle u, w\rangle.
+%  $$
+%  Similarly, (ii) follows from
+%  $$
+%    \langle u,cv\rangle = \bar{\langle cv,u\rangle} = \bar{c\langle v,u\rangle} \bar c \bar{\langle v,u \rangle} = \bar c\langle u,v\rangle.
+%  $$
+%  Finally, (iii) follows from the fact that the scalar $0$ times the vector $0$ is $0$, hence $\langle 0,w\rangle = 0\langle 0,w\rangle = 0$.
+%\end{solution}
+
+\problem{{\bf D'Angelo 2.2.} Prove the Cauchy-Schwarz inequality in $\RR^n$ by writing $\|x\|^2 \|y\|^2- |\langle x,y\rangle|^2$ as a sum of squares.  Give the analogous proof in $\CC^n$. }
+
+\begin{solution}
+  For $x=(x_1,\dots,x_n),\,y=(y_1,\dots,y_n)$, the inequality is equivalent to
+  $$
+    \left(\sum_{j=1}^n x_j^2 \right)\left(\sum_{k=1}^n y_k^2 \right) - \left( \sum_{i=1}^nx_i y_i\right)^2 \ge 0.
+  $$
+  %When $n=1$, it is clear that the left hand side of the inequality is 0.
+  To proceed, we prove the following identity by induction.   
+  $$
+    \left(\sum_{j=1}^n x_j^2 \right)\left(\sum_{k=1}^n y_k^2 \right) - \left( \sum_{i=1}^nx_i y_i\right)^2
+    = \sum_{k=1}^{n}\sum_{j=1}^{k-1}(x_k y_j - y_k x_j)^2.
+  $$
+  where summation $\sum_{j=1}^0$ is taken to be zero.  When $n=1$, both the left hand and right hand side are zero of the equality above.
+  %for $n>2$. In the base case, simply distributing and factoring gives 
+  %\begin{align*}
+  %  &(x^2_1 + x^2_2)(y^2_1 + y^2_2) - (x_1y_1 + x_2 y_2)^2 \\
+  %  = &(x_1y_1)^2 + (x_1 y_2)^2 + (x_2y_1)^2 + (y_1y_2)^2 - (x_1y_1)^2 - 2(x_1x_2y_1y_2) - (x_2y_2)^2 \\
+  %  = &(x_1y_2 - x_2y_1)^2.
+  %\end{align*}
+  Now, Observe
+  \begin{align*}
+    \left(\sum_{j=1}^{n+1} x_j^2 \right)\left(\sum_{k=1}^{n+1} y_k^2 \right) 
+    &= \left(\sum_{j=1}^n x_j^2 + x^2_{n+1}\right)\left(\sum_{k=1}^n y_k^2 + y^2_{n+1}\right) \\
+    &= \sum_{j=1}^n x_j^2\sum_{k=1}^n y_k^2 + x^2_{n+1}\sum_{k=1}^n y_k^2 + y^2_{n+1}\sum_{j=1}^n x_j^2 + x_{n+1}^2y_{n+1}^2, \\
+    \intertext{and}
+    \left( \sum_{j=1}^{n+1}x_j y_j \right)^2 
+    &= \left( \sum_{j=1}^nx_j y_j \right)^2 + 2x_{n+1}y_{n+1}\sum_{j=1}^n x_jy_j  + x_{n+1}^2y_{n+1}^2.
+  \end{align*}
+  Subtracting these quantities and invoking the induction hypothesis, results in
+    \begin{align*}
+    &\left(\sum_{k=1}^{n}\sum_{j=1}^{k-1}(x_k y_j - y_k x_j)^2\right) + 
+    x^2_{n+1}\sum_{k=1}^n y_k^2 -2x_{n+1}y_{n+1}\sum_{j=1}^n x_jy_j+ y^2_{n+1}\sum_{j=1}^n x_j^2\\
+    &= \left(\sum_{k=1}^{n}\sum_{j=1}^{k-1}(x_k y_j - y_k x_j)^2\right) + 
+    \sum_{j=1}^n (x_{n+1}y_j)^2 -2x_{n+1}y_{n+1}x_jy_j + (y_{n+1}x_j)^2\\
+    &= \left(\sum_{k=1}^{n}\sum_{j=1}^{k-1}(x_k y_j - y_k x_j)^2\right) + 
+    \sum_{j=1}^{(n+1)-1} (x_{n+1}y_j - y_{n+1}x_j)^2\\
+    &= \sum_{k=1}^{n+1}\sum_{j=1}^{k-1}(x_k y_j - y_k x_j)^2.
+  \end{align*}
+  The analogous proof in $\CC^n$ would be to prove the similarly indexed identity $\sum|x_j|^2\sum|y_k|^2 - |\sum x_jy_j| = \sum\sum|x_k\bar y_i - y_k \bar x_i|^2$ in a completely analogous fashion, only differing by writing $|\sum x_jy_j|^2 = \sum x_jy_j \sum \bar x_j \bar y_j$, and factoring a similar expression.
+  
+\end{solution}
+
+\end{document}

@@ -1,0 +1,100 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 11}
+\author{Kevin Joyce}
+\docdate{\today}
+
+
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+\newcommand{\FF}{\mathcal F}
+\renewcommand{\Re}{\mathrm{Re}\,}
+\renewcommand{\Im}{\mathrm{Im}\,}
+\newcommand{\HH}{\mathcal H}
+
+\problem{{\bf D'Angelo 2.25.} Let $L:\ell^2 \to \ell^2$ be defined by 
+$$
+  L(z_1,z_2,\dots) = (0,z_1,z_2,\dots).
+$$
+Show that $\|Lz\|_2 = \|z\|_2$ for all $z$ but that $L$ is not unitary.
+}
+
+\begin{solution}
+  Observe
+  $$
+    \|Lz\|^2_2 = 0 + \sum_{n=1}^\infty|z_n|^2 = \|z\|_2^2,
+  $$
+  so $\|Lz\|_2 = \|z\|_2$.
+
+  But, this map is not surjective since $(1,0,0\dots)$ is not in its range, i.e. hence it is not invertible.
+\end{solution}
+
+\problem{{\bf D'Angelo 2.26}
+  Give an example of a bounded linear $L:\HH \to \HH$ that is injective but not surjective and an example that is surjective but not injective. 
+}
+
+\begin{solution}
+  Take $\HH = \ell^2$ with $L$ as in {\bf D'Angelo 2.25.} which was shown not to be surjective. Observe that
+  $$
+    \langle L z, v\rangle = 0 + \sum_{n=2}^\infty z_{n-1}v_n = \sum_{n=1}^\infty z_nv_{n+1}.
+  $$
+  Hence $L^*$ is given by
+  $$
+    L(v_1,v_2,\dots) = (v_2,v_3,\dots),
+  $$
+  and note $L^*Lv = v$.  Hence $L$ has a left inverse, so it is injective.  That is, if $Lv = Lw$ then $v = w$ since $L^*$ was shown to be a well defined map.
+
+  Now, $L^*$ is surjective since it has a right inverse; i.e. for any given $z \in \ell^2$, $(Lz)$ maps to $z$ under $L^*$. Note that $L^*(k,v_2,v_3,\dots) = (v_2,v_3,\dots)$ for any $k$, so $L^*$ is not injective.
+\end{solution}
+
+\problem{{\bf D'Angelo 2.28}
+Give an example of an operator $L$ for which $\|L^2\| \not= \|L\|^2$.  Suppose $L=L^*$; show that $\|L^2\| = \|L\|^2$.
+}
+
+\begin{solution}
+  Let $L:\CC^2 \to \CC^2$ by $Lz = L(z_1,z_2) = (z_2,0)$.  Note $L^2 z = L(z_2,0) = (0,0)$, hence $L^2 = 0$ the operator, and thus, $\|L^2\| =0$.  On the other hand, $\|L(0,1)\| = \|(1,0)\| = 1$, hence $\|L\|>0$ implies $\|L\|^2=0$.
+
+  Now for a general $L\in \mathcal L(\HH)$, observe that 
+  $$
+    \| L^2 z \| \le \|L\|\, \|L z\| \le \|L\|^2\, \|z\|.  
+  $$
+  Hence, $\|L^2\| \le \|L\|^2$.
+  Now, suppose $L=L^*$.  Then
+  $$
+    \|Lz\|^2 = |\langle Lz, Lz\rangle| = |\langle z, L^*Lz\rangle = \langle z , L^2 z\rangle| \le \|z\|\, \|L^2 z\|.
+  $$
+\end{solution}
+
+\problem{{\bf D'Angelo 2.26}
+}
+
+\problem{{\bf D'Angelo 2.26}
+}
+
+\problem{{\bf D'Angelo 2.26}
+}
+
+\problem{{\bf D'Angelo 2.26}
+}
+
+
+\end{document}

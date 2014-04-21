@@ -1,0 +1,76 @@
+\documentclass{homework}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{upgreek}
+\usepackage[framed]{mcode}
+\usepackage{mathrsfs}
+\usepackage{units}
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+\newtheorem{lemma}{Lemma}
+
+\title{Kevin Joyce}
+\course{Math 564 - Hermetian Analysis - Homework 6}
+\author{Kevin Joyce}
+\docdate{\today}
+
+
+\begin{document} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\renewcommand{\SS}{\mathcal S}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\TTheta}{\overline{\underline \Theta} }
+\newcommand{\del}{\partial}
+\newcommand{\approxsim}{\overset{\cdotp}{\underset{\cdotp}{\sim}}}
+\newcommand{\FF}{\mathcal F}
+
+\problem{{\bf D'Angelo 1.56} Let $p$ be a polynomial.  Show that the series $\sum(-1)^np(n)$ is Abel summable.  More generally, for $|z| < 1$, show that $\sum_0^\infty p(n) z^n$ is a polynomial in $\frac 1{1-z}$ with no constant term.  Hence, the limit, as we approach the unit circle from within, exists at every point except 1.}
+
+\begin{solution}
+It suffices to prove only the general case since $z = -1$ is defined for any polynomial in $\frac 1{1-z}$.
+%We only prove the general case and proceed by induction on the degree of $p$, say d.  When $d=0$, it is clear that $\sum_{n=0}^\infty c_0 n z^n = \frac c{1-z}$. Now, observe for a $d$th degree polynomial
+%\begin{align*}
+%  \sum_{n=0}^\infty p(n) z^n 
+%  &= \sum_{n=0}^\infty \left(c_d n^{d} + c_{d-1} n^{d} + \dots c_0\right) z^n \\
+%  &= \sum_{n=0}^\infty c_d n^{d} z^n + \sum_{n=0}^\infty (c_{n-1} n^{d-1} + \dots + c_0) z^n \\
+%  &= \sum_{n=0}^\infty c_d n^{d-1} (nz^n) + \sum_{n=0}^\infty (c_{n-1} n^{d-1} + \dots + c_0) z^n \\
+%  &= \sum_{n=0}^\infty c_d n^{d-1}  \left(z\frac d{dz} z^n\right) + \sum_{n=0}^\infty (c_{n-1} n^{d-1} + \dots + c_0) z^n \\
+%  &= z\frac d{dz} \sum_{n=0}^\infty c_d n^{d-1}  z^n+ \sum_{n=0}^\infty (c_{n-1} n^{d-1} + \dots + c_0) z^n \\
+%  &= z\frac d{dz} q_1\left(\frac 1{1-z}\right)+ q_2\left(\frac 1{1-z}\right) \\
+%  &= zq_1'\left(\frac 1{1-z}\right)\frac 1{(1-z)^2} + q_2\left(\frac 1{1-z}\right), 
+%\end{align*}
+%where $q_1$ and $q_2$ are given by the induction hypothesis and in
+%$^*$ we used the fact that the first sum is a power series to interchange the order of $\frac {d^n}{dz^n}$ and $\sum$.
+%
+In fact, given a polynomial $p(n) = c_0 + c_1n + \dots + c_dn^d$, by linearity it further suffices only to show that $\sum_{n=0}^\infty  n^k z^n$ can be written as a polynomial in $\frac 1{1-z}$.
+
+Observe that $ z\frac d{dz} z^n = nz^n.  $
+Proceeding inductively, we have 
+$$
+  \left[z\frac d{dz}\right]^k z^n = \left[ z\frac d{dz} \right]^{k-1} nz^n = n \left[ z\frac d{dz} \right]^{k-1} z^n = \dots =n^k z^n.
+$$
+Now, we evaluate
+\begin{align*}
+  \sum_{n=0}^\infty n^k z^n 
+  &= \sum_{n=0}^\infty \left[z\frac d{dz}\right]^k z^n \\
+  &\stackrel*=  \left[z\frac d{dz}\right]^k \sum_{n=0}^\infty z^n \\
+  &= z^n \frac{d^n}{dz^n} (1-z)^{-1}\\
+  &= z^n (1-z)^{-n-1}\\
+  &= \frac 1{1-z} \left(\frac z{1-z}\right)^{n}\\
+  &= \frac 1{1-z} \left(\frac 1{1-z}- 1\right)^{n}.\\
+\end{align*}
+In $\stackrel*=$ we used the fact that the sum is a power series to interchange
+the order of $\frac {d^n}{dz^n}$ and $\sum_{n=1}^\infty$.
+%\begin{align*}
+%  \dots&\stackrel*=  c_d \left[z\frac{d}{dz}\right]^{d+1} \sum_{n=0}^\infty z^n + q\left(\frac 1{1-z}\right) \\
+%  &=  c_d \left[z\frac{d}{dz}\right]^{d+1} \frac{1}{1-z}+ q\left(\frac 1{1-z}\right) \\
+%  &=  c_d z^{d+1}(1-z)^{-d-1}+ q\left(\frac 1{1-z}\right) 
+%\end{align*}
+%
+\end{solution}
+
+\end{document}
